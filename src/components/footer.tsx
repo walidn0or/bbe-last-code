@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, Building2, ExternalLink, MessageCircle } from "lucide-react"
+import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Building2, ExternalLink, MessageCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 interface FooterProps {
@@ -14,12 +14,12 @@ export function Footer({ scrollToSection }: FooterProps) {
   const { t, isRTL } = useLanguage()
 
   const navigationLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Programs", href: "/programs" },
-    { name: "News", href: "/news" },
-    { name: "Impact", href: "/impact" },
-    { name: "Contact", href: "/contact" },
+    { name: t("header.home"), href: "/" },
+    { name: t("header.about"), href: "/about" },
+    { name: t("header.programs"), href: "/programs" },
+    { name: t("header.news"), href: "/news" },
+    { name: t("header.impact"), href: "/impact" },
+    { name: t("header.contact"), href: "/contact" },
   ]
 
   const socialLinks = [
@@ -52,12 +52,6 @@ export function Footer({ scrollToSection }: FooterProps) {
       href: "https://linkedin.com/company/beyond-borders-empowerment",
       icon: Linkedin,
       color: "hover:text-blue-700"
-    },
-    {
-      name: "YouTube",
-      href: "https://youtube.com/@beyondbordersempowerment",
-      icon: Youtube,
-      color: "hover:text-red-600"
     }
   ]
 
@@ -129,7 +123,7 @@ export function Footer({ scrollToSection }: FooterProps) {
 
               {/* Support Us Section */}
               <div className="mb-6">
-                <h4 className="text-lg font-bold text-white mb-3">Support Us</h4>
+                <h4 className="text-lg font-bold text-white mb-3">{t("footer.supportUs")}</h4>
                 <div className="space-y-2">
                   <a 
                     href="https://gofundme.com" 
@@ -139,7 +133,7 @@ export function Footer({ scrollToSection }: FooterProps) {
                   >
                     <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300 hover:scale-105">
                       <Heart className="h-4 w-4 mr-2" />
-                      Go Fund Me
+                      {t("footer.goFundMe")}
                     </Button>
                   </a>
                 </div>
@@ -148,7 +142,7 @@ export function Footer({ scrollToSection }: FooterProps) {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-bold text-white mb-6">Quick Links</h4>
+              <h4 className="text-lg font-bold text-white mb-6">{t("footer.quickLinks")}</h4>
               <nav className="space-y-3">
                 {navigationLinks.map((link) => (
                   <Link
@@ -164,23 +158,23 @@ export function Footer({ scrollToSection }: FooterProps) {
 
             {/* Programs & Services */}
             <div>
-              <h4 className="text-lg font-bold text-white mb-6">Our Programs</h4>
+              <h4 className="text-lg font-bold text-white mb-6">{t("footer.ourPrograms")}</h4>
               <div className="space-y-3">
                 <div className="text-gray-300 text-sm">
-                  <div className="font-medium text-white mb-1">Virtual Education</div>
-                  <div>400+ students across Afghanistan</div>
+                  <div className="font-medium text-white mb-1">{t("footer.virtualEducation")}</div>
+                  <div>{t("footer.virtualEducationStat")}</div>
                 </div>
                 <div className="text-gray-300 text-sm">
-                  <div className="font-medium text-white mb-1">Orphan Support</div>
-                  <div>110 children in Kabul orphanages</div>
+                  <div className="font-medium text-white mb-1">{t("footer.orphanSupport")}</div>
+                  <div>{t("footer.orphanSupportStat")}</div>
                 </div>
                 <div className="text-gray-300 text-sm">
-                  <div className="font-medium text-white mb-1">Women Empowerment</div>
-                  <div>11 women startups supported</div>
+                  <div className="font-medium text-white mb-1">{t("footer.womenEmpowerment")}</div>
+                  <div>{t("footer.womenEmpowermentStat")}</div>
                 </div>
                 <div className="text-gray-300 text-sm">
-                  <div className="font-medium text-white mb-1">Emergency Relief</div>
-                  <div>20+ families assisted</div>
+                  <div className="font-medium text-white mb-1">{t("footer.emergencyRelief")}</div>
+                  <div>{t("footer.emergencyReliefStat")}</div>
                 </div>
               </div>
             </div>
@@ -193,7 +187,7 @@ export function Footer({ scrollToSection }: FooterProps) {
             {/* Social Media Links - Above the line */}
             <div className="text-center">
               <h4 className="text-sm font-semibold text-white mb-4">
-                Follow Our Journey
+                {t("footer.followOurJourney")}
               </h4>
               <div className="flex items-center justify-center gap-4">
                 {socialLinks.map((social) => (
@@ -219,17 +213,17 @@ export function Footer({ scrollToSection }: FooterProps) {
               <div className="flex-1"></div>
               <div className="text-right">
                 <p className="text-gray-400 text-sm mb-1">
-                  &copy; 2025 Beyond Borders Empowerment Foundation
+                  {t("footer.copyrightLine")}
                 </p>
                 <p className="text-gray-500 text-xs mb-2">
-                  Registered in England and Wales | Charity Registration: 15570506
+                  {t("footer.registrationLine")}
                 </p>
                 <div className="flex items-center justify-end gap-4 text-xs">
                   <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                    Privacy Policy
+                    {t("footer.privacy")}
                   </Link>
                   <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                    Terms of Service
+                    {t("footer.terms")}
                   </Link>
                   <a 
                     href="https://find-and-update.company-information.service.gov.uk/company/15570506"
@@ -237,7 +231,7 @@ export function Footer({ scrollToSection }: FooterProps) {
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
                   >
-                    Companies House
+                    {t("footer.companiesHouse")}
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
@@ -276,12 +270,6 @@ export function SocialLinks() {
       href: "https://linkedin.com/company/beyond-borders-empowerment",
       icon: Linkedin,
       color: "bg-blue-700 hover:bg-blue-800"
-    },
-    {
-      name: "YouTube",
-      href: "https://youtube.com/@beyondbordersempowerment",
-      icon: Youtube,
-      color: "bg-red-600 hover:bg-red-700"
     }
   ]
 

@@ -43,12 +43,12 @@ const translations:any = {
     "header.donateShort": "Donate",
 
     // Hero Section
-    "hero.badge": "Registered NGO Since 2023",
+    "hero.badge": "",
     "hero.title1": "Empowering Girls",
     "hero.title2": "Helping Communities",
     "hero.title3": "Transforming Lives",
     "hero.description":
-      "Beyond Borders Empowerment is dedicated to promoting human rights, improving healthcare conditions, and providing access to education in vulnerable regions, with a special focus on empowering women and girls in Afghanistan.",
+      "Beyond Borders Empowerment (BBE) is a women-led, non-profit organisation dedicated to fostering systemic change in marginalized communities. By centering women, youth, and children as agents of their own development, BBE addresses entrenched inequities arising from conflict, poverty, and social exclusion. Through an integrated portfolio of initiatives—including inclusive quality education, equitable healthcare access, economic empowerment, and context-driven innovation—BBE cultivates sustainable pathways for resilience, social transformation, sustainability, and long-term community prosperity.",
     "hero.supportMission": "Support Our Mission",
     "hero.getInvolved": "Get Involved",
     "hero.learnMore": "Learn More",
@@ -225,6 +225,7 @@ const translations:any = {
     // Testimonials Section
     "testimonials.title": "Success Stories",
     "testimonials.subtitle": "Real stories from the communities we serve",
+    "testimonials.clickToReadMore": "Click to read more",
     "testimonials.quote1":
       "The virtual English classes have opened new opportunities for me. I can now communicate with people from around the world.",
     "testimonials.name1": "Fatima",
@@ -272,6 +273,21 @@ const translations:any = {
     "footer.tagline": "Empowering Girls • Helping Communities • Transforming Lives",
     "footer.description":
       "Dedicated to promoting human rights, improving healthcare conditions, and providing access to education in vulnerable regions, with a special focus on empowering women and girls in Afghanistan.",
+    "footer.supportUs": "Support Us",
+    "footer.goFundMe": "Go Fund Me",
+    "footer.ourPrograms": "Our Programs",
+    "footer.virtualEducation": "Virtual Education",
+    "footer.virtualEducationStat": "400+ students across Afghanistan",
+    "footer.orphanSupport": "Orphan Support",
+    "footer.orphanSupportStat": "110 children in Kabul orphanages",
+    "footer.womenEmpowerment": "Women Empowerment",
+    "footer.womenEmpowermentStat": "11 women startups supported",
+    "footer.emergencyRelief": "Emergency Relief",
+    "footer.emergencyReliefStat": "20+ families assisted",
+    "footer.followOurJourney": "Follow Our Journey",
+    "footer.copyrightLine": "© 2025 Beyond Borders Empowerment Foundation",
+    "footer.registrationLine": "Registered in England and Wales | Charity Registration: 15570506",
+    "footer.companiesHouse": "Companies House",
     "footer.quickLinks": "Quick Links",
     "footer.getInvolved": "Get Involved",
     "footer.volunteer": "Volunteer",
@@ -280,6 +296,22 @@ const translations:any = {
     "footer.copyright": " 2025 Beyond Borders Empowerment. All rights reserved.",
     "footer.privacy": "Privacy Policy",
     "footer.terms": "Terms of Service",
+
+    // Publications
+    "publications.title": "Publications",
+    "publications.subtitle": "Explore our annual reports, student library, and narratives from our community",
+    "publications.annualReports": "Annual Reports",
+    "publications.financialReports": "Financial Reports",
+    "publications.financialReportsDesc": "Comprehensive financial statements and transparency reports detailing our use of funds and resources.",
+    "publications.narrativeReports": "Narrative Reports",
+    "publications.narrativeReportsDesc": "Detailed accounts of our programs, impact stories, and achievements throughout the year.",
+    "publications.downloadReports": "Download Reports",
+    "publications.libraryTitle": "Books/Student Library",
+    "publications.libraryDesc": "Our student library provides access to educational resources, books, and learning materials to support students in their academic journey. We curate collections that are relevant to our programs and accessible to students across different regions.",
+    "publications.libraryNote": "Library resources are available to all enrolled students. Contact us for access information.",
+    "publications.narrativesTitle": "Students' Narratives",
+    "publications.narrativesDesc": "Read powerful stories from our students sharing their journeys, challenges, achievements, and how our programs have impacted their lives. These narratives reflect the resilience, determination, and hope that drive our community forward.",
+    "publications.narrativesNote": "Student narratives are shared with permission and celebrate the voices of our community members.",
   },
 
   fa: {
@@ -302,7 +334,7 @@ const translations:any = {
     "header.donateShort": "کمک",
 
     // Hero Section
-    "hero.badge": "سازمان غیردولتی ثبت شده از سال ۲۰۲۳",
+    "hero.badge": "",
     "hero.title1": "توانمندسازی دختران",
     "hero.title2": "کمک به جوامع",
     "hero.title3": "تغییر زندگی‌ها",
@@ -484,6 +516,7 @@ const translations:any = {
     // Testimonials Section
     "testimonials.title": "داستان‌های موفقیت",
     "testimonials.subtitle": "داستان‌های واقعی از جوامعی که خدمت می‌کنیم",
+    "testimonials.clickToReadMore": "برای خواندن بیشتر کلیک کنید",
     "testimonials.quote1":
       "کلاس‌های مجازی انگلیسی فرصت‌های جدیدی برای من باز کرده است. اکنون می‌توانم با مردم از سراسر جهان ارتباط برقرار کنم.",
     "testimonials.name1": "فاطمه",
@@ -529,6 +562,21 @@ const translations:any = {
     "footer.tagline": "توانمندسازی دختران • کمک به جوامع • تغییر زندگی‌ها",
     "footer.description":
       "متعهد به ترویج حقوق بشر، بهبود شرایط بهداشتی و ارائه دسترسی به آموزش در مناطق آسیب‌پذیر، با تمرکز ویژه بر توانمندسازی زنان و دختران در افغانستان.",
+    "footer.supportUs": "از ما حمایت کنید",
+    "footer.goFundMe": "گو فاند می",
+    "footer.ourPrograms": "برنامه‌های ما",
+    "footer.virtualEducation": "آموزش مجازی",
+    "footer.virtualEducationStat": "۴۰۰+ دانش‌آموز در سراسر افغانستان",
+    "footer.orphanSupport": "حمایت از یتیمان",
+    "footer.orphanSupportStat": "۱۱۰ کودک در یتیم‌خانه‌های کابل",
+    "footer.womenEmpowerment": "توانمندسازی زنان",
+    "footer.womenEmpowermentStat": "۱۱ کسب‌وکار زنانه حمایت شد",
+    "footer.emergencyRelief": "کمک‌های اضطراری",
+    "footer.emergencyReliefStat": "۲۰+ خانواده کمک دریافت کردند",
+    "footer.followOurJourney": "سفر ما را دنبال کنید",
+    "footer.copyrightLine": "© ۲۰۲۵ بنیاد توانمندسازی فراتر از مرزها",
+    "footer.registrationLine": "ثبت‌شده در انگلستان و ولز | شماره ثبت خیریه: 15570506",
+    "footer.companiesHouse": "شرکت‌هاوس",
     "footer.quickLinks": "لینک‌های سریع",
     "footer.getInvolved": "مشارکت کنید",
     "footer.volunteer": "داوطلب",
@@ -537,6 +585,22 @@ const translations:any = {
     "footer.copyright": " ۲۰۲۵ توانمندسازی فراتر از مرزها. تمام حقوق محفوظ است.",
     "footer.privacy": "سیاست حفظ حریم خصوصی",
     "footer.terms": "شرایط خدمات",
+
+    // Publications
+    "publications.title": "انتشارات",
+    "publications.subtitle": "گزارش‌های سالانه، کتابخانه دانش‌آموزان و روایت‌های جامعه ما را بررسی کنید",
+    "publications.annualReports": "گزارش‌های سالانه",
+    "publications.financialReports": "گزارش‌های مالی",
+    "publications.financialReportsDesc": "صورت‌های مالی جامع و گزارش‌های شفافیت درباره نحوه استفاده از منابع و بودجه.",
+    "publications.narrativeReports": "گزارش‌های روایتی",
+    "publications.narrativeReportsDesc": "شرح دقیق برنامه‌ها، داستان‌های اثرگذاری و دستاوردهای سالانه.",
+    "publications.downloadReports": "دانلود گزارش‌ها",
+    "publications.libraryTitle": "کتابخانه / منابع آموزشی",
+    "publications.libraryDesc": "کتابخانه دانش‌آموزان ما دسترسی به منابع آموزشی، کتاب‌ها و مواد یادگیری را برای حمایت از مسیر آموزشی فراهم می‌کند.",
+    "publications.libraryNote": "منابع کتابخانه برای همه دانش‌آموزان ثبت‌نام‌شده در دسترس است. برای دسترسی با ما تماس بگیرید.",
+    "publications.narrativesTitle": "روایت‌های دانش‌آموزان",
+    "publications.narrativesDesc": "داستان‌های الهام‌بخش دانش‌آموزان را درباره مسیر، چالش‌ها و دستاوردهایشان بخوانید.",
+    "publications.narrativesNote": "روایت‌ها با اجازه منتشر می‌شوند و صدای جامعه ما را جشن می‌گیرند.",
   },
 
   ps: {
@@ -559,7 +623,7 @@ const translations:any = {
     "header.donateShort": "مرسته",
 
     // Hero Section
-    "hero.badge": "د ۲۰۲۳ څخه راهیسې ثبت شوې غیر دولتي موسسه",
+    "hero.badge": "",
     "hero.title1": "د نجونو پیاوړتیا",
     "hero.title2": "د ټولنو سره مرسته",
     "hero.title3": "د ژوند بدلون",
@@ -741,6 +805,7 @@ const translations:any = {
     // Testimonials Section
     "testimonials.title": "د بریا کیسې",
     "testimonials.subtitle": "د هغو ټولنو ریښتینې کیسې چې موږ یې خدمت کوو",
+    "testimonials.clickToReadMore": "د نور لوستلو لپاره کلیک وکړئ",
     "testimonials.quote1":
       "مجازی انګلیسي ټولګیو ما ته نوې فرصتونه پرانیستي دي. زه اوس کولی شم د نړۍ له ګوټ ګوټ څخه له خلکو سره اړیکه ونیسم.",
     "testimonials.name1": "فاطمه",
@@ -788,6 +853,21 @@ const translations:any = {
     "footer.tagline": "د نجونو پیاوړتیا • د ټولنو سره مرسته • د ژوند بدلون",
     "footer.description":
       "د بشري حقونو ته وده ورکولو، د روغتیایي شرایطو ښه کولو، او په زیان منونکو سیمو کې زده کړو ته د لاسرسي چمتو کولو ته وقف شوی، په افغانستان کې د میرمنو او نجونو پیاوړتیا ته ځانګړې پاملرنه سره.",
+    "footer.supportUs": "زموږ ملاتړ وکړئ",
+    "footer.goFundMe": "ګو فنډ می",
+    "footer.ourPrograms": "زموږ پروګرامونه",
+    "footer.virtualEducation": "مجازی زده کړه",
+    "footer.virtualEducationStat": "۴۰۰+ زده کوونکي په ټول افغانستان کې",
+    "footer.orphanSupport": "د یتیمانو ملاتړ",
+    "footer.orphanSupportStat": "۱۱۰ ماشومان د کابل یتیمخانو کې",
+    "footer.womenEmpowerment": "د ښځو پیاوړتیا",
+    "footer.womenEmpowermentStat": "۱۱ د ښځو سوداګرۍ ملاتړ شوې",
+    "footer.emergencyRelief": "بیړنۍ مرستې",
+    "footer.emergencyReliefStat": "۲۰+ کورنۍ مرسته ترلاسه کړه",
+    "footer.followOurJourney": "زموږ سفر تعقیب کړئ",
+    "footer.copyrightLine": "© 2025 د پولو څخه هاخوا پیاوړتیا بنسټ",
+    "footer.registrationLine": "په انګلستان او وېلز کې ثبت | د خیریه ثبت: 15570506",
+    "footer.companiesHouse": "کمپنۍ هاوس",
     "footer.quickLinks": "چټک لینکونه",
     "footer.getInvolved": "ګډون وکړئ",
     "footer.volunteer": "رضاکار",
@@ -796,6 +876,22 @@ const translations:any = {
     "footer.copyright": " 2025 د پولو څخه هاخوا پیاوړتیا. ټول حقونه خوندي دي.",
     "footer.privacy": "د محرمیت پالیسي",
     "footer.terms": "د خدماتو شرایط",
+
+    // Publications
+    "publications.title": "خپرونې",
+    "publications.subtitle": "زموږ کلني راپورونه، د زده کوونکو کتابتون، او د ټولنې کیسې وګورئ",
+    "publications.annualReports": "کلني راپورونه",
+    "publications.financialReports": "مالي راپورونه",
+    "publications.financialReportsDesc": "د مالي شفافیت او د سرچینو/بودجې د کارولو جامع راپورونه.",
+    "publications.narrativeReports": "روایتي راپورونه",
+    "publications.narrativeReportsDesc": "د پروګرامونو، اغیزو کیسو او لاسته راوړنو مفصل راپورونه.",
+    "publications.downloadReports": "راپورونه ډاونلوډ کړئ",
+    "publications.libraryTitle": "کتابتون / د زده کوونکو منابع",
+    "publications.libraryDesc": "زموږ د زده کوونکو کتابتون ښوونیزو منابعو، کتابونو او د زده کړې موادو ته لاسرسی برابروي.",
+    "publications.libraryNote": "منابع د ټولو ثبت شویو زده کوونکو لپاره شته. د لاسرسي لپاره اړیکه ونیسئ.",
+    "publications.narrativesTitle": "د زده کوونکو کیسې",
+    "publications.narrativesDesc": "د زده کوونکو پیاوړې کیسې ولولئ چې څنګه زموږ پروګرامونو د دوی پر ژوند اغیز کړی.",
+    "publications.narrativesNote": "کیسې د اجازې سره شریکېږي او د ټولنې غږونه لمانځي.",
   },
 }
 
