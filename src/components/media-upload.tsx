@@ -20,13 +20,17 @@ interface MediaUploadProps {
   acceptedTypes?: string;
   maxSize?: string | number;
   label?: string;
+  directory?: string;
+  storageKey?: string;
 }
 
 export function MediaUpload({ 
   onUploaded,
   acceptedTypes = 'image/*,video/*',
   maxSize = 50 * 1024 * 1024,
-  label = 'Upload Media' 
+  label = 'Upload Media',
+  directory,
+  storageKey,
 }: MediaUploadProps) {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [isDragOver, setIsDragOver] = useState(false)
@@ -110,6 +114,8 @@ export function MediaUpload({
     try {
       const formData = new FormData()
       formData.append('files', file)
+      if (directory) formData.append('directory', directory)
+      if (storageKey) formData.append('storageKey', storageKey)
 
       const response = await fetch('/api/upload', {
         method: 'POST',

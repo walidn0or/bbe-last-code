@@ -309,7 +309,6 @@ export function OurWork() {
                         }`}
                         aria-label={`View ${activeItem.title} gallery image ${idx + 1}`}
                       >
-                        <div key={`${String(activeItem.key)}-thumb-${idx}`} className="relative w-16 h-12 rounded-lg overflow-hidden ring-1 ring-gray-200">
                         <div className="relative h-24 sm:h-28 md:h-32">
                           <Image
                             src={getImage(src, images.fallback.placeholder)}
