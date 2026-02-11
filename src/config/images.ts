@@ -1,6 +1,13 @@
 // Centralized image configuration
 // Update image paths here to change images across all sections
-
+//
+// WHERE TO UPLOAD FILES (all paths are under public/):
+// - Hero background video   → public/images/videos/                    → hero.background
+// - Home page gallery       → public/images/content/ or .../home/     → homeGallery[]
+// - Success stories (Barin, Wasiya, Moheba, Ozra) images & videos
+//   → public/images/home/success-stories/ or public/images/success-stories/
+//   → successStories.barin / .wasiya / .moheba / .ozra  (each: image, video)
+// - Hero main image         → public/images/content/                  → hero.main
 
 export const images: any = {
   // Logo
@@ -12,26 +19,38 @@ export const images: any = {
   logo: "/images/Beyond-Borders-Empowerment-logo-PNG.svg",
 
   // Hero Section
+  // - Main image: put file in public/images/content/ and set path below
+  // - Background video: put your file (e.g. background-video.mp4) in public/images/videos/ and set path below
   hero: {
-    main: "/images/content/1.jpeg",
-    background: "/images/videos/Orphanage(1).mov"
+    main: "/hero/background-video.mp4",
+    background: "/hero/background-video.mp4"
   },
 
-  // Videos Section - The 4 uploaded videos
+  // Home page gallery – the 6 tiles. Videos use their first frame as thumbnail (no separate thumbnail needed). Click a video to play.
+  homeGallery: [
+    { type: "video" as const, src: "/images/home/b.mp4", alt: "Education Program" },
+    { type: "image" as const, src: "/images/home/g1.jpeg", alt: "Welcome Video" },
+    { type: "video" as const, src: "/images/home/o2.mp4", alt: "Economic Empowerment" },
+    { type: "image" as const, src: "/images/home/g3.jpeg", alt: "Orphanage Support" },
+    { type: "video" as const, src: "/images/home/o1.mp4", alt: "Community Empowerment" },
+    { type: "image" as const, src: "/images/home/iftar.jpeg", alt: "Education Program Video" },
+  ],
+
+  // Videos Section - All converted to MP4 for browser compatibility
   videos: {
-    featured: "/images/videos/Business.mov",
-    video1: "/images/videos/Business.mov",
-    video2: "/images/videos/Orphanage(1).mov",
-    video3: "/images/videos/Orphanage(2).mov",
-    video4: "/images/videos/feedback.mp4",
-    video5: "/images/videos/Business.mov" // Fallback to first video
+    featured: "/images/home/g1.jpeg",
+    video1: "/images/home/b.mp4",
+    video2: "/images/home/o1.mp4",
+    video3: "/images/home/o2.mp4",
+    video4: "/images/home/feedback.mp4",
+    video5: "/images/home/b.mp4" // Fallback to first video
   },
 
-  // Impact Stories Videos - Same 4 videos for home page
+  // Impact Stories Videos - All MP4 format for maximum browser compatibility
   impactStories: {
-    welcome: "/images/videos/Business.mov",
-    orphanageSupport: "/images/videos/Orphanage(1).mov",
-    educationProgram: "/images/videos/Orphanage(2).mov",
+    welcome: "/images/videos/b.mp4",
+    orphanageSupport: "/images/videos/o1.mp4",
+    educationProgram: "/images/videos/o2.mp4",
     communityImpact: "/images/videos/feedback.mp4",
   },
 
@@ -44,59 +63,122 @@ export const images: any = {
       farangis: "/images/members/Farangis Fariwar(Board of Trustees).jpeg", 
       imran: "/images/members/Imran Fazal(Board of Trustees).jpeg",
       kaihan: "/images/members/Kaihan Alambye(Board of Trustees).jpeg",
+      emma: "/images/members/Emma.png",
       waheed: "/images/members/male.png",
       
       // Staff Members
       khatira: "/images/members/Khatira Fikrat(HR and Admin Manager).jpeg",
       sadaf: "/images/members/Sadaf Ghawsi(Program & Technical Lead + Project Management).jpeg",
+      bahar: "/images/members/famle.png",
+      mozhgan: "/images/members/famle.png",
+      mana: "/images/members/famle.png",
       
       // Educators
       adeeba: "/images/members/Adeeba Bareen(Educator).jpeg",
       malika: "/images/members/Malika Hail (Educator).jpeg",
-      hamasa: "/images/members/female.png",
-      zarghona: "/images/members/female.png",
+      hamasa: "/images/members/Hamasa Noorzai.jpeg",
+      zarghona: "/images/members/famle.png",
       
       // Researchers
-      hasina: "/images/members/Hasina Zmarai(Researcher).jpeg",
-      geety: "/images/members/female.png",
+      hasina: "/images/members/Hasina Zmarai.jpeg",
+      geety: "/images/members/famle.png",
+
+      // Generic team slots used by admin uploads (team_member1, team_member2, team_member3)
+      member1: "/images/members/famle.png",
+      member2: "/images/members/famle.png",
+      member3: "/images/members/male.png",
     },
     values: {
-      inclusiveness: "/images/content/Inclusiveness.jpeg",
-      sustainability: "/images/content/Sustainability.jpeg",
-      accountability: "/images/content/accountability.jpeg",
-      empowerment: "/images/content/Economic Empowerment(2).jpeg",
-      dignity: "/images/content/dignity.jpeg"
+      inclusiveness: "/images/about/Inclusiveness.png",
+      sustainability: "/images/about/Sustainability.png",
+      accountability: "/images/about/accountability.jpeg",
+      empowerment: "/images/about/Community.png",
+      dignity: "/images/about/Respect.png"
     }
   },
 
   // Programs Section
   programs: {
     education: "/images/content/Education Support.jpeg",
-    healthcare: "/images/content/Healthcare Support(Emergency Medical Support).jpeg",
+    healthcare: "/images/content/healthcare/Healthcare Support(Emergency Medical Support)(1).jpeg",
     economic: "/images/content/Economic Empowerment1.jpeg",
-    orphans: "/images/content/Orphaned Children Support + Accountability_.jpg",
+    orphans: "/images/content/Orphaned/Orphaned Children Support.jpg",
     rights: "/images/content/Human Rights Advocacy_.jpg",
-    emergency: "/images/content/Healthcare Support(Emergency Medical Support)(1).jpeg"
+    emergency: "/images/content/healthcare/Healthcare Support(Emergency Medical Support)(1).jpeg"
+  },
+
+  programsGalleries: {
+    education: [
+      "/images/content/education/Education Support.jpeg",
+      "/images/content/education/Education Programs.jpeg",
+      "/images/content/education/Education Program .JPG"
+    ],
+    healthcare: [
+      "/images/content/healthcare/Healthcare Support(Emergency Medical Support)(1).jpeg",
+      "/images/content/healthcare/Healthcare Support(Emergency Medical Support).JPEG",
+      "/images/content/healthcare/Healthcare Support(Emergency Medical Support)(2).JPEG"
+    ],
+    economic: [],
+    orphans: [
+      "/images/content/Orphaned/Orphaned Children Support.jpg",
+      "/images/content/Orphaned/Orphaned Children Support(1).jpeg",
+      "/images/content/Orphaned/Orphaned Children Support + Accountability_.jpg"
+    ],
+    rights: [],
+    emergency: [
+      "/images/content/healthcare/Healthcare Support(Emergency Medical Support)(1).jpeg",
+      "/images/content/healthcare/Healthcare Support(Emergency Medical Support).JPEG"
+    ]
   },
 
   // News Section
   // Using content images as placeholders until news images are uploaded
   news: {
-    featured: "/images/news/News & Updates.jpeg",
+    featured: "/images/news/Chevening.jpeg",
     article1: "/images/news/News & Updates (1).jpeg",
     article2: "/images/news/News & Updates (2).jpeg",
-    article3: "/images/news/News & Updates (4).jpeg",
-    article4: "/images/news/News & Updates (5).jpeg",
-    article5: "/images/news/News & Updates (6).jpeg",
-    article6: "/images/news/article-6.jpg"
+    article3: "/images/news/News & Updates.jpeg",
+    article4: "/images/news/News.jpeg",
+    article5: "/images/news/News2.jpeg",
+    article6: "/images/news/News & Updates.jpeg",
+
+    3: {
+      main: "/images/news/News & Updates (2).jpeg",
+      gallery: []
+    },
+    4: {
+      main: "/images/news/News.jpeg",
+      gallery: ["/images/news/News & Updates.jpeg", "/images/news/News2.jpeg"]
+    }
+  },
+
+  newsArticles: {
+    cheveningInfoSession: {
+      main: "/images/news/Chevening.jpeg",
+      gallery: []
+    },
+    refugeesCulturalEventLondon: {
+      main: "/images/news/News.jpeg",
+      gallery: ["/images/news/News2.jpeg"]
+    },
+    refugeesCulturalEventLondonOld: {
+      main: "/images/news/News & Updates (1).jpeg",
+      gallery: []
+    },
+    psychologicalFirstAidTraining: {
+      main: "/images/news/News & Updates (2).jpeg",
+      gallery: []
+    }
+  },
+
+  publications: {
+    annualReports: {
+      financialReportsPdf: "/reports/Annual Impoact and Financial report 2025.pdf",
+      narrativeReportsPdf: "/reports/narrative-reports.pdf"
+    }
   },
 
   // Testimonials Section (Success Stories)
-  // To upload testimonial images:
-  // 1. Create folder: public/images/testimonials/
-  // 2. Add square images (300x300px recommended) named: person-1.jpg, person-2.jpg, person-3.jpg
-  // 3. Images will display as circular profile photos
-  // 4. If no image exists, will show icon instead
   testimonials: {
     person1: "/images/success stories/Fatima.png",
     person2: "/images/success stories/Mariam.png",
@@ -104,15 +186,26 @@ export const images: any = {
     person4: "/images/success stories/person-4.jpg",
     person5: "/images/success stories/person-5.jpg",
     person6: "/images/success stories/person-6.jpg",
-    // Testimonial videos
     video1: "/images/testimonials/video-1.mp4",
     video2: "/images/testimonials/video-2.mp4",
     video3: "/images/testimonials/video-3.mp4"
   },
 
+  // Success Stories (Barin Jebran, Wasiya Safi, Moheba Karimi, Ozra Penhan)
+  // Upload: profile images → public/images/success-stories/ or public/images/home/success-stories/
+  //         videos        → public/images/success-stories/ or public/images/home/success-stories/
+  // Then set paths below. Videos play in the modal when "Click to read more" is opened.
+  successStories: {
+    barin: { image: "/images/home/success-stories/barin.png", video: "" },
+    bakhti: { image: "", video: "" },
+    wasiya: { video: "/images/home/success-stories/Student-Feedback(1).mov" },
+    moheba: { video: "/images/home/success-stories/Student-Feedback(2).mov" },
+    ozra: { video: "/images/home/success-stories/Student-Feedback.mov" }
+  },
+
   // Impact Section
   impact: {
-    background: "/images/impact/background.jpg",
+    background: "/images/impact/b.mp4",
     students: "/images/impact/students.jpg",
     orphans: "/images/impact/orphans.jpg",
     healthcare: "/images/impact/healthcare.jpg",
@@ -121,14 +214,14 @@ export const images: any = {
     coding: "/images/impact/coding-students.jpg"
   },
 
-  // Gallery Section
+  // Gallery Section (optional; not used on home – home gallery is homeGallery above)
   gallery: {
     education: [
-      "/images/gallery/education-1.jpg",
-      "/images/gallery/education-2.jpg",
-      "/images/gallery/education-3.jpg",
-      "/images/gallery/education-4.jpg",
-      "/images/gallery/education-5.jpg",
+      "/images/gallery/home/education-1.jpg",
+      "/images/gallery//home/education-2.jpg",
+      "/images/gallery/home/education-3.jpg",
+      "/images/gallery/home/education-4.jpg",
+      "/images/gallery/home/education-5.jpg",
       "/images/gallery/education-6.jpg"
     ],
     healthcare: [
@@ -184,6 +277,39 @@ export const images: any = {
     volunteer: "/images/banners/volunteer-banner.jpg",
     campaign: "/images/banners/campaign-banner.jpg",
     event: "/images/banners/event-banner.jpg"
+  },
+
+  // Our Work Section (placeholders, replace with uploads)
+  ourWork: {
+    menstrualHygiene: "/images/home/our-work/Orphaned-Children-Support.jpeg",
+    languageSkills: "/images/home/our-work/Education-Program.JPG",
+    orphanSupport: "/images/home/our-work/IMG_3327.jpeg",
+    scholarshipMentorship: "/images/home/our-work/scholarship.png",
+    artClub: "/images/home/our-work/art.jpeg",
+    healthSupport: "/images/home/our-work/health.jpeg"
+  },
+
+  // Optional galleries for Our Work (add more images per program)
+  ourWorkGallery: {
+    // No extra gallery images yet for menstrual hygiene
+    menstrualHygiene: [],
+    languageSkills: [
+      // Keep only the main extra image
+      "/images/home/our-work/ielts.jpeg"
+    ],
+    orphanSupport: [
+      // Keep only the main extra image
+    "/images/home/our-work/Iftar.jpeg"
+    ],
+    scholarshipMentorship: [
+      // No gallery images configured yet
+    ],
+    artClub: [
+      // No gallery images configured yet
+    ],
+    healthSupport: [
+      // No gallery images configured yet
+    ]
   },
 
   // Fallback images
