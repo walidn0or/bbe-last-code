@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Building2, ExternalLink, MessageCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { getAssetPath, images } from "@/config/images"
 
 interface FooterProps {
   scrollToSection: (sectionId: string) => void
@@ -72,7 +73,7 @@ export function Footer({ scrollToSection }: FooterProps) {
             <div className="lg:col-span-2">
               <div className={`flex items-center gap-4 mb-6 ${isRTL ? "flex-row-reverse" : ""}`}>
                 <Image
-                  src="/images/Beyond-Borders-Empowerment-logo-PNG.svg"
+                  src={getAssetPath(images.logo)}
                   alt="Beyond Borders Empowerment Logo"
                   width={60}
                   height={60}

@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Quote, X } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { useState, useEffect, useRef } from "react"
-import { images } from "@/config/images"
+import { getAssetPath, images } from "@/config/images"
 
 interface SuccessStory {
   name: string
@@ -36,7 +36,7 @@ function VideoCircleThumb({ src, label }: { src: string; label: string }) {
     <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mb-3 flex-shrink-0 ring-2 ring-red-100 border-2 border-white shadow-md bg-black">
       <video
         ref={ref}
-        src={src}
+        src={getAssetPath(src)}
         muted
         playsInline
         preload="metadata"
@@ -202,7 +202,7 @@ export function SuccessStoriesSection() {
                     {(storyImages[selectedStory.storageKey || ""] || selectedStory.image) ? (
                       <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-white/30">
                         <Image
-                          src={storyImages[selectedStory.storageKey || ""] || selectedStory.image || "/images/placeholder.jpg"}
+                          src={getAssetPath(storyImages[selectedStory.storageKey || ""] || selectedStory.image || "/images/placeholder.jpg")}
                           alt={selectedStory.name}
                           fill
                           className="object-cover"
@@ -212,7 +212,7 @@ export function SuccessStoriesSection() {
                     ) : selectedStory.video ? (
                       <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-white/30 bg-black">
                         <video
-                          src={selectedStory.video}
+                          src={getAssetPath(selectedStory.video)}
                           muted
                           playsInline
                           preload="metadata"
@@ -267,13 +267,13 @@ export function SuccessStoriesSection() {
                     {selectedStory.video && (
                       <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-xl overflow-hidden mb-6 shadow-lg bg-black">
                         <video
-                          src={selectedStory.video}
+                          src={getAssetPath(selectedStory.video)}
                           controls
                           className="w-full h-full object-contain"
                           preload="metadata"
                         >
-                          <source src={selectedStory.video} type="video/mp4" />
-                          <source src={selectedStory.video} type="video/quicktime" />
+                          <source src={getAssetPath(selectedStory.video)} type="video/mp4" />
+                          <source src={getAssetPath(selectedStory.video)} type="video/quicktime" />
                           Your browser does not support the video tag.
                         </video>
                       </div>

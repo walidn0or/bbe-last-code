@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import type { Viewport } from "next"
 import { Inter } from "next/font/google"
 import { PageTransition } from "@/components/page-transition"
+import { getAssetPath } from "@/config/images"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Beyond Borders Empowerment" }],
   creator: "Beyond Borders Empowerment",
   publisher: "Beyond Borders Empowerment",
-  manifest: "/site.webmanifest",
+  manifest: getAssetPath("/site.webmanifest"),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     description: "Empowering marginalized communities through education, healthcare, economic opportunity, and humanitarian aid in Afghanistan and beyond.",
     images: [
       {
-        url: "/images/content/1.jpeg",
+        url: getAssetPath("/images/content/1.jpeg"),
         width: 1200,
         height: 630,
         alt: "Beyond Borders Empowerment - Empowering Communities",
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Beyond Borders Empowerment | Empowering Communities",
     description: "Empowering marginalized communities through education, healthcare, and economic opportunity.",
-    images: ["/images/content/1.jpeg"],
+    images: [getAssetPath("/images/content/1.jpeg")],
     creator: "@BBE_NGO",
   },
   robots: {
@@ -64,8 +65,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href={getAssetPath("/favicon.ico")} sizes="any" />
+        <link rel="apple-touch-icon" href={getAssetPath("/apple-touch-icon.png")} />
       </head>
       <body className={`${inter.className} antialiased`}>
         <PageTransition>
