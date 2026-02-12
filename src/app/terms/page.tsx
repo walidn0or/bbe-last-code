@@ -45,7 +45,7 @@ export default function TermsOfUsePage() {
             <div className="prose prose-lg max-w-none space-y-8">
               <section>
                 <p className="text-gray-700 leading-relaxed">
-                  Welcome to Beyond Borders Empowerment ("BBE", "we", "us", or "our"). These Terms of Use ("Terms") 
+                  Welcome to Beyond Borders Empowerment (&#34;BBE&#34;, &#34;we&#34;, &#34;us&#34;, or &#34;our&#34;). These Terms of Use (&#34;Terms&#34;) 
                   govern your access to and use of our website <strong>bbe.ngo</strong> and all related services.
                 </p>
                 <p className="text-gray-700 leading-relaxed mt-4">
@@ -77,7 +77,7 @@ export default function TermsOfUsePage() {
                 <p className="text-gray-700 leading-relaxed">You agree NOT to:</p>
                 <ul className="list-disc pl-6 text-gray-700 space-y-2">
                   <li>Use the website in any way that violates any applicable law</li>
-                  <li>Engage in conduct that restricts or inhibits anyone's use of the website</li>
+                  <li>Engage in conduct that restricts or inhibits anyone&apos;s use of the website</li>
                   <li>Attempt to gain unauthorized access to any portion of the website</li>
                   <li>Use automated systems to access the website without permission</li>
                   <li>Transmit any viruses, malware, or harmful code</li>
@@ -140,10 +140,10 @@ export default function TermsOfUsePage() {
                   <h2 className="text-2xl font-bold text-gray-900 m-0">6. Disclaimer of Warranties</h2>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  THE WEBSITE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT ANY WARRANTIES OF ANY KIND. BBE DOES NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE.
+                  THE WEBSITE IS PROVIDED ON AN &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; BASIS WITHOUT ANY WARRANTIES OF ANY KIND. BBE DOES NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE.
                 </p>
                 <p className="text-gray-700 leading-relaxed mt-4">
-                  We make no warranties about the accuracy or completeness of the website's content or any linked websites.
+                  We make no warranties about the accuracy or completeness of the website&apos;s content or any linked websites.
                 </p>
               </section>
 
@@ -163,7 +163,7 @@ export default function TermsOfUsePage() {
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Indemnification</h2>
                 <p className="text-gray-700 leading-relaxed">
-                  You agree to indemnify, defend, and hold harmless BBE, its officers, directors, employees, agents, and affiliates from any claims, liabilities, damages, losses, and expenses, including attorneys' fees, arising from your use of the website or violation of these Terms.
+                  You agree to indemnify, defend, and hold harmless BBE, its officers, directors, employees, agents, and affiliates from any claims, liabilities, damages, losses, and expenses, including attorneys&apos; fees, arising from your use of the website or violation of these Terms.
                 </p>
               </section>
 

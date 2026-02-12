@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { InlineImageUpload } from "@/components/inline-image-upload"
 import { useRouter } from "next/navigation"
 import { TeamSection } from "@/components/team-section"
+import Link from "next/link"
 
 interface BackgroundContent {
   title: string
@@ -115,7 +116,7 @@ Respect for Dignity: We treat every individual and culture with the utmost respe
             asChild
             className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg text-lg"
           >
-            <a href="/#contact">Contact Us</a>
+            <Link href="/#contact">Contact Us</Link>
           </Button>
         </div>
 

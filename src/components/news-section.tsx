@@ -4,21 +4,33 @@ import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, ArrowRight, X, Share2, BookOpen, Eye, Heart, Twitter, Facebook, Linkedin, MessageCircle, Mail, Link2, Check, ChevronRight } from "lucide-react"
+import { Calendar, Clock, ArrowRight, X, Share2, BookOpen, Twitter, Facebook, Linkedin, MessageCircle, Mail, Link2, Check, ChevronRight } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { useState, useEffect } from "react"
 import { images, getImage } from "@/config/images"
 import { InlineImageUpload } from "@/components/inline-image-upload"
 
+type NewsArticle = {
+  id: number
+  title: string
+  excerpt: string
+  image: string
+  date: string
+  category: string
+  readTime: string
+  featured: boolean
+  tags: string[]
+}
+
 export function NewsSection() {
   const { t, isRTL } = useLanguage()
 
-  const [selectedArticle, setSelectedArticle] = useState<any>(null)
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null)
+  const [selectedModalImage, setSelectedModalImage] = useState<string | null>(null)
   const [animateCards, setAnimateCards] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const [showShareMenu, setShowShareMenu] = useState<number | null>(null)
   const [copiedLink, setCopiedLink] = useState(false)
-  const [likedArticles, setLikedArticles] = useState<Set<number>>(new Set())
   const [newsImages, setNewsImages] = useState<Record<number, string>>({
     1: images.news.featured,
     2: images.news.article1,
@@ -60,65 +72,78 @@ export function NewsSection() {
     }
   }, [])
 
-  const newsArticles = [
+  const newsArticles: NewsArticle[] = [
     {
       id: 1,
-      title: "Virtual Education Milestone: Curriculum Completed September 2025",
+      title: "Chevening Information Session",
       excerpt:
-        "A key milestone has been the completion of the virtual English class curriculum in September 2025. Basic-level students will advance to intermediate classes, while advanced students will begin IELTS preparation.",
-      image: newsImages[1],
-      date: "September 2025",
+        "Beyond Borders Empowerment is pleased to host a Chevening Information Session on the fully funded UK government scholarship that offers exceptional future leaders the opportunity to pursue a world-class education in the UK.",
+      image: newsImages[1] || images.news?.[1]?.main || images.news.featured,
+      date: "2025",
       category: t("news.education"),
-      readTime: "5",
+      readTime: "6",
       featured: true,
-      views: "4.1K",
-      likes: 312,
-      tags: ["Virtual Education", "English Classes", "IELTS", "Curriculum"],
+      tags: ["Scholarship", "Chevening", "UK Education", "Information Session"],
     },
     {
       id: 2,
-      title: "Virtual Education Project Inaugurated - February 2025",
+      title: "Refugees Cultural Event – London",
       excerpt:
-        "BBE inaugurated the Virtual Education Project with 100 attendees including NGO directors, Afghan diaspora members, business owners, and U.K. government representatives. The project now reaches over 400 students across Afghanistan, Pakistan, and Iran.",
-      image: newsImages[2],
+        "In February 2025, Beyond Borders Empowerment (BBE) hosted a Refugees Cultural Event at Rumi Restaurant in London, bringing together refugees and community members from diverse backgrounds for an evening of connection and solidarity.",
+      image: newsImages[2] || images.news?.[2]?.main || images.news.article1,
       date: "February 2025",
-      category: t("news.education"),
-      readTime: "4",
+      category: t("news.partnership"),
+      readTime: "5",
       featured: false,
-      views: "3.8K",
-      likes: 287,
-      tags: ["Virtual Education", "Launch Event", "International Partnership"],
+      tags: ["Refugees", "London", "Community", "Education"],
     },
     {
       id: 3,
-      title: "300+ Applications for Coding & Microsoft Office Courses",
+      title: "Psychological First Aid (PFA) Training",
       excerpt:
-        "Recently launched virtual Microsoft Office and coding courses for Afghan girls have received an overwhelming response with more than 300 applications. These courses are expanding technical education opportunities for Afghan students.",
-      image: newsImages[3],
-      date: "October 2025",
-      category: t("news.skillsTraining"),
-      readTime: "3",
+        "Beyond Borders Empowerment is pleased to announce the launch of an Online Training on Psychological First Aid (PFA) delivered by expert dear Rahila Poya. This program aims to strengthen the capacity of individuals and communities to respond to emotional and psychological distress during times of crisis.",
+      image: newsImages[3] || images.news?.[3]?.main || images.news.article2,
+      date: "December 2025",
+      category: t("news.healthcare"),
+      readTime: "6",
       featured: false,
-      views: "2.9K",
-      likes: 234,
-      tags: ["Coding", "Microsoft Office", "Afghan Girls", "Tech Education"],
+      tags: ["Mental Health", "Training", "PFA", "Online"],
     },
   ]
 
   const featuredArticle = newsArticles[0]
   const otherArticles = newsArticles.slice(1)
 
-  const handleArticleClick = (article: any) => {
+  const handleArticleClick = (article: NewsArticle) => {
     setSelectedArticle(article)
+    setSelectedModalImage(null)
     document.body.style.overflow = "hidden"
   }
 
   const handleCloseModal = () => {
     setSelectedArticle(null)
+    setSelectedModalImage(null)
     document.body.style.overflow = "unset"
   }
 
-  const handleShare = (article: any, platform: string) => {
+  const selectedGalleryImages = (() => {
+    if (!selectedArticle) return [] as string[]
+    const newsById = images.news as unknown as Record<number, { gallery?: readonly string[] }>
+    const fromConfig = newsById[selectedArticle.id]?.gallery || []
+    const base = [selectedArticle.image, ...fromConfig]
+    const uniq: string[] = []
+    for (const src of base) {
+      if (!src) continue
+      const resolved = getImage(src, images.fallback.placeholder)
+      if (!uniq.includes(resolved)) uniq.push(resolved)
+    }
+    return uniq
+  })()
+
+  const selectedMainImage =
+    selectedModalImage || (selectedGalleryImages[0] ? selectedGalleryImages[0] : getImage(selectedArticle?.image, images.fallback.placeholder))
+
+  const handleShare = (article: NewsArticle, platform: string) => {
     const url = typeof window !== 'undefined' ? window.location.origin : ''
     const articleUrl = `${url}#news`
     const title = article.title
@@ -174,6 +199,7 @@ export function NewsSection() {
   return (
     <section
       id="news"
+      dir={isRTL ? "rtl" : "ltr"}
       className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 scroll-mt-20 relative overflow-hidden"
     >
       {/* Background decorative elements */}
@@ -202,7 +228,7 @@ export function NewsSection() {
             <div className={`grid lg:grid-cols-2 gap-0 ${isRTL ? "lg:grid-flow-col-dense" : ""}`}>
               <div className={`relative order-2 lg:order-1 ${isRTL ? "lg:order-2" : ""} overflow-hidden`}>
                 <Image
-                  src={getImage(featuredArticle.image)}
+                  src={getImage(featuredArticle.image, images.fallback.placeholder)}
                   alt={featuredArticle.title}
                   width={600}
                   height={400}
@@ -229,19 +255,6 @@ export function NewsSection() {
                   </Badge>
                 </div>
 
-                {/* Stats overlay */}
-                <div
-                  className={`absolute bottom-4 ${isRTL ? "right-4" : "left-4"} flex items-center gap-4 text-white text-sm`}
-                >
-                  <div className="flex items-center gap-1 bg-black/50 rounded-full px-2 py-1">
-                    <Eye className="h-3 w-3" />
-                    {featuredArticle.views}
-                  </div>
-                  <div className="flex items-center gap-1 bg-black/50 rounded-full px-2 py-1">
-                    <Heart className="h-3 w-3" />
-                    {featuredArticle.likes}
-                  </div>
-                </div>
               </div>
 
               <div
@@ -375,7 +388,7 @@ export function NewsSection() {
               >
                 <div className="relative overflow-hidden">
                   <Image
-                    src={getImage(article.image)}
+                    src={getImage(article.image, images.fallback.placeholder)}
                     alt={article.title}
                     width={400}
                     height={250}
@@ -399,19 +412,6 @@ export function NewsSection() {
                     </Badge>
                   </div>
 
-                  {/* Stats overlay */}
-                  <div
-                    className={`absolute bottom-3 ${isRTL ? "right-3" : "left-3"} flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                  >
-                    <div className="flex items-center gap-1 bg-white/90 rounded-full px-2 py-1 text-xs">
-                      <Eye className="h-3 w-3" />
-                      {article.views}
-                    </div>
-                    <div className="flex items-center gap-1 bg-white/90 rounded-full px-2 py-1 text-xs">
-                      <Heart className="h-3 w-3 text-red-500" />
-                      {article.likes}
-                    </div>
-                  </div>
                 </div>
 
                 <CardContent className="p-4 md:p-6">
@@ -477,7 +477,9 @@ export function NewsSection() {
                         <Share2 className="h-4 w-4" />
                       </Button>
                       {showShareMenu === article.id && (
-                        <div className="absolute bottom-full mb-2 right-0 bg-white rounded-lg shadow-xl border border-gray-200 p-2 z-[9999] min-w-[200px] animate-scale-in">
+                        <div
+                          className={`absolute bottom-full mb-2 ${isRTL ? "left-0" : "right-0"} bg-white rounded-lg shadow-xl border border-gray-200 p-2 z-[9999] min-w-[200px] animate-scale-in`}
+                        >
                           <div className="text-xs font-semibold text-gray-500 px-3 py-2 border-b">{t("news.shareOn") || "Share on"}</div>
                           <button
                             onClick={(e) => {
@@ -553,7 +555,7 @@ export function NewsSection() {
         {/* Enhanced Article Detail Modal */}
         {selectedArticle && (
           <div 
-            className="fixed top-20 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm z-40 flex items-start justify-center p-4 pt-8 animate-fade-in overflow-y-auto"
+            className="fixed inset-0 bg-black/70 backdrop-blur-md z-[60] flex items-start justify-center p-4 pt-24 md:pt-28 animate-fade-in overflow-y-auto"
             onClick={handleCloseModal}
           >
             <div className="relative w-full max-w-4xl mb-8">
@@ -566,7 +568,7 @@ export function NewsSection() {
                   variant="ghost"
                   size="icon"
                   onClick={handleCloseModal}
-                  className={`absolute ${isRTL ? "left-4" : "right-4"} top-4 z-50 bg-white hover:bg-red-600 text-gray-700 hover:text-white transition-all rounded-full h-12 w-12 shadow-2xl hover:shadow-red-500/50 border-2 border-gray-300 hover:border-red-600`}
+                  className={`absolute ${isRTL ? "left-4" : "right-4"} top-4 z-[70] bg-white hover:bg-red-600 text-gray-700 hover:text-white transition-all rounded-full h-12 w-12 shadow-2xl hover:shadow-red-500/50 border-2 border-gray-300 hover:border-red-600`}
                 >
                   <X className="h-6 w-6" />
                 </Button>
@@ -580,16 +582,6 @@ export function NewsSection() {
                     <Badge className="text-xs md:text-sm bg-gradient-to-r from-red-600 to-blue-600 text-white">
                       {selectedArticle.category}
                     </Badge>
-                    <div className={`flex items-center gap-4 text-xs text-gray-500 ${isRTL ? "flex-row-reverse" : ""}`}>
-                      <div className={`flex items-center gap-1 ${isRTL ? "flex-row-reverse" : ""}`}>
-                        <Eye className="h-3 w-3" />
-                        <span>{selectedArticle.views}</span>
-                      </div>
-                      <div className={`flex items-center gap-1 ${isRTL ? "flex-row-reverse" : ""}`}>
-                        <Heart className="h-3 w-3 text-red-500" />
-                        <span>{selectedArticle.likes}</span>
-                      </div>
-                    </div>
                   </div>
                   <h2 className={`text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight ${isRTL ? "text-right" : ""}`}>
                     {selectedArticle.title}
@@ -598,10 +590,10 @@ export function NewsSection() {
               </div>
 
               {/* Modal Content */}
-              <div className="overflow-y-auto max-h-[calc(90vh-140px)] scroll-smooth">
+              <div className="overflow-y-auto max-h-[calc(100vh-140px)] scroll-smooth">
                 <div className="relative">
                   <Image
-                    src={getImage(selectedArticle.image)}
+                    src={selectedMainImage}
                     alt={selectedArticle.title}
                     width={800}
                     height={400}
@@ -609,6 +601,36 @@ export function NewsSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
+
+                {selectedGalleryImages.length > 1 && (
+                  <div className="px-6 md:px-8 lg:px-10 py-4 border-b border-gray-200 bg-white">
+                    <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+                      {selectedGalleryImages.map((src, idx) => (
+                        <button
+                          key={`${src}-${idx}`}
+                          type="button"
+                          onClick={() => setSelectedModalImage(src)}
+                          className={`relative rounded-lg overflow-hidden border bg-gray-50 transition-colors ${
+                            selectedMainImage === src
+                              ? "border-red-500 ring-2 ring-red-200"
+                              : "border-gray-200 hover:border-gray-300"
+                          }`}
+                          aria-label={`View image ${idx + 1}`}
+                        >
+                          <div className="relative h-14 sm:h-16">
+                            <Image
+                              src={src}
+                              alt={`Thumbnail ${idx + 1}`}
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 120px, 20vw"
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="p-6 md:p-8 lg:p-10">
                   {/* Article meta */}
@@ -649,27 +671,29 @@ export function NewsSection() {
                       {selectedArticle.id === 1 && (
                         <>
                           <p>
-                            The Virtual Education Project has achieved a significant milestone with the completion of the virtual English class curriculum in September 2025. This comprehensive program reaches over 400 students across Afghanistan and Afghan diaspora communities in Pakistan and Iran.
+                            Beyond Borders Empowerment is pleased to host a Chevening Information Session on the fully funded UK government scholarship that offers exceptional future leaders the opportunity to pursue a world-class education in the UK.
                           </p>
 
                           <p>
-                            Students enrolled in the basic-level English courses will now advance to intermediate classes, while those in advanced levels will begin IELTS preparation. This progression demonstrates the project's commitment to providing structured, quality education that meets international standards.
+                            In this session, expert Chevening alumni will guide participants through the eligibility criteria, application tips and essay writing guidance, as well as the opportunities and benefits of the program.
                           </p>
 
                           <h4 className="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4 flex items-center gap-2">
                             <div className="w-1 h-6 bg-gradient-to-b from-red-600 to-blue-600 rounded-full"></div>
-                            Program Highlights:
+                            Session Highlights:
                           </h4>
-                          <ul className="list-disc pl-6 space-y-3 text-gray-700 text-base md:text-lg">
-                            <li>Over 400 students enrolled across Afghanistan, Pakistan, and Iran</li>
-                            <li>Curriculum completed in September 2025</li>
-                            <li>Basic students advancing to intermediate level</li>
-                            <li>Advanced students beginning IELTS preparation</li>
-                            <li>Virtual classrooms enabling access from multiple provinces</li>
+                          <ul
+                            className={`list-disc ${isRTL ? "pr-6 pl-0" : "pl-6"} space-y-3 text-gray-700 text-base md:text-lg`}
+                          >
+                            <li>Chevening scholarship overview and benefits</li>
+                            <li>Eligibility criteria explained clearly</li>
+                            <li>Application tips and essay writing guidance</li>
+                            <li>Direct insights from Chevening alumni</li>
+                            <li>Practical steps to begin your application journey</li>
                           </ul>
 
                           <p>
-                            The success of this program demonstrates the power of virtual education in reaching students who might otherwise have limited access to quality English language instruction.
+                            Don’t miss this chance to learn directly from alumni and take your first step toward a fully funded master’s degree in the UK.
                           </p>
                         </>
                       )}
@@ -677,27 +701,33 @@ export function NewsSection() {
                       {selectedArticle.id === 2 && (
                         <>
                           <p>
-                            In February 2025, Beyond Borders Empowerment inaugurated the Virtual Education Project with a landmark event attended by 100 distinguished guests. The ceremony brought together NGO directors, members of the Afghan diaspora, business owners, and representatives from the U.K. government.
+                            In February 2025, Beyond Borders Empowerment (BBE) hosted a Refugees Cultural Event at Rumi Restaurant in London, bringing together refugees and community members from diverse backgrounds for an evening of connection and solidarity.
                           </p>
 
                           <p>
-                            This project represents a major step forward in BBE's mission to provide accessible, quality education to Afghan students regardless of their location. The virtual platform enables students from various provinces of Afghanistan, as well as diaspora communities in Pakistan and Iran, to access educational opportunities.
+                            The event created a valuable space for networking, shared experiences, and mutual understanding, while also expressing collective support for girls and women in Afghanistan.
+                          </p>
+
+                          <p>
+                            During the gathering, BBE officially launched its “Pathways Towards Opportunities” program, an initiative designed to equip young Afghan girls and women with English language and computer skills to support their education and future opportunities.
                           </p>
 
                           <h4 className="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4 flex items-center gap-2">
                             <div className="w-1 h-6 bg-gradient-to-b from-red-600 to-blue-600 rounded-full"></div>
-                            Project Impact:
+                            Event Highlights:
                           </h4>
-                          <ul className="list-disc pl-6 space-y-3 text-gray-700 text-base md:text-lg">
-                            <li>100 attendees at inauguration ceremony</li>
-                            <li>Over 400 students currently enrolled</li>
-                            <li>Students from Afghanistan, Pakistan, and Iran</li>
-                            <li>Support from international partners and government representatives</li>
-                            <li>On-ground schools successfully completing programs</li>
+                          <ul
+                            className={`list-disc ${isRTL ? "pr-6 pl-0" : "pl-6"} space-y-3 text-gray-700 text-base md:text-lg`}
+                          >
+                            <li>Over 100 participants attended</li>
+                            <li>Community networking and solidarity</li>
+                            <li>Support for girls’ education in Afghanistan</li>
+                            <li>Launch of “Pathways Towards Opportunities”</li>
+                            <li>Shared responsibility to address education gaps</li>
                           </ul>
 
                           <p>
-                            The Virtual Education Project continues to grow, with new student applications being accepted through a Google Form selection process.
+                            The evening highlighted the urgent need to address educational gaps in Afghanistan and reinforced the importance of collective action in supporting access to learning and empowerment.
                           </p>
                         </>
                       )}
@@ -705,31 +735,47 @@ export function NewsSection() {
                       {selectedArticle.id === 3 && (
                         <>
                           <p>
-                            BBE has recently launched virtual Microsoft Office and coding courses specifically designed for Afghan girls. The response has been overwhelming, with more than 300 applications received for these technical education programs.
+                            Beyond Borders Empowerment is pleased to announce the launch of an Online Training on Psychological First Aid (PFA) delivered by expert dear Rahila Poya. This program aims to strengthen the capacity of individuals and communities to respond to emotional and psychological distress during times of crisis.
                           </p>
 
                           <p>
-                            These courses are part of BBE's commitment to expanding technical education opportunities and empowering Afghan girls with essential digital skills that can open doors to future career opportunities.
+                            This virtual training is designed for professionals, volunteers, and community members who wish to support individuals affected by stress, trauma, disasters, or emergencies.
                           </p>
 
                           <h4 className="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4 flex items-center gap-2">
                             <div className="w-1 h-6 bg-gradient-to-b from-red-600 to-blue-600 rounded-full"></div>
-                            Course Offerings:
+                            Training Topics:
                           </h4>
-                          <ul className="list-disc pl-6 space-y-3 text-gray-700 text-base md:text-lg">
-                            <li>Virtual Microsoft Office training</li>
-                            <li>Coding and programming courses</li>
-                            <li>Over 300 applications received</li>
-                            <li>Courses specifically designed for Afghan girls</li>
-                            <li>Focus on practical, career-ready skills</li>
+                          <ul
+                            className={`list-disc ${isRTL ? "pr-6 pl-0" : "pl-6"} space-y-3 text-gray-700 text-base md:text-lg`}
+                          >
+                            <li>Understanding the core principles and steps of PFA</li>
+                            <li>Recognizing common signs of stress and trauma</li>
+                            <li>Providing immediate emotional and practical support</li>
+                            <li>Knowing how and when to refer individuals to specialized mental health services</li>
                           </ul>
 
-                          <div className="bg-blue-50 p-5 md:p-6 rounded-xl border-l-4 border-blue-500 mt-6">
-                            <p className="text-blue-900 font-bold text-lg mb-2">Growing Demand:</p>
-                            <p className="text-blue-800 text-base md:text-lg leading-relaxed">
-                              The high number of applications demonstrates the strong demand for technical education among Afghan girls and the importance of providing these opportunities.
-                            </p>
-                          </div>
+                          <h4 className="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4 flex items-center gap-2">
+                            <div className="w-1 h-6 bg-gradient-to-b from-red-600 to-blue-600 rounded-full"></div>
+                            Training Details:
+                          </h4>
+                          <ul
+                            className={`list-disc ${isRTL ? "pr-6 pl-0" : "pl-6"} space-y-3 text-gray-700 text-base md:text-lg`}
+                          >
+                            <li>Dates: December 27, 28, and 29</li>
+                            <li>Time: 6:00 PM – 7:00 PM (Kabul Time)</li>
+                            <li>Format: Online (Google Meet)</li>
+                            <li>Trainer: Rahila Poya</li>
+                          </ul>
+
+                          <p>
+                            Interested participants can register by scanning the QR code on the official poster or by completing the Google registration form available here:
+                          </p>
+                          <p>
+                            <a href="https://forms.gle/8dWPv1MDYPbxiXi28" target="_blank" rel="noreferrer">
+                              https://forms.gle/8dWPv1MDYPbxiXi28
+                            </a>
+                          </p>
                         </>
                       )}
 
@@ -738,13 +784,6 @@ export function NewsSection() {
 
                   {/* Action buttons */}
                   <div className={`flex flex-wrap gap-3 mt-10 pt-8 border-t-2 border-gray-200 ${isRTL ? "flex-row-reverse" : ""}`}>
-                    <Button
-                      variant="destructive"
-                      className="gap-2 px-6 py-3 text-base font-semibold"
-                    >
-                      <Heart className="h-5 w-5" />
-                      {t("news.likeArticle")}
-                    </Button>
                     <div className="relative share-menu-container">
                       <Button
                         variant="outline"
@@ -755,7 +794,9 @@ export function NewsSection() {
                         {t("news.shareArticle")}
                       </Button>
                       {showShareMenu === selectedArticle.id && (
-                        <div className="absolute bottom-full mb-2 left-0 bg-white rounded-lg shadow-xl border border-gray-200 p-2 z-[9999] min-w-[200px] animate-scale-in">
+                        <div
+                          className={`absolute bottom-full mb-2 ${isRTL ? "right-0" : "left-0"} bg-white rounded-lg shadow-xl border border-gray-200 p-2 z-[9999] min-w-[200px] animate-scale-in`}
+                        >
                           <div className="text-xs font-semibold text-gray-500 px-3 py-2 border-b">{t("news.shareOn") || "Share on"}</div>
                           <button
                             onClick={() => handleShare(selectedArticle, 'twitter')}

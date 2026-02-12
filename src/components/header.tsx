@@ -2,9 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState, useRef, useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Heart, Menu, X, ChevronDown } from "lucide-react"
+import { ChevronDown, Heart, Menu, X } from "lucide-react"
 import { LanguageSwitcher } from "./language-switcher"
 import { useLanguage } from "@/contexts/language-context"
 import { images } from "@/config/images"
@@ -46,17 +46,16 @@ export function Header({ activeSection }: HeaderProps) {
 
   const navigationItems = [
     { name: t("header.home"), id: "home", href: "/" },
-    { 
-      name: t("header.about"), 
-      id: "about", 
-      href: "/about",
+    {
+      name: t("header.about"),
+      id: "about",
+      href: "/about#about",
       hasDropdown: true,
       subItems: [
-        { name: t("header.aboutOverview"), href: "/about" },
         { name: t("header.aboutMissionVision"), href: "/about#mission-vision" },
         { name: t("header.aboutCoreValues"), href: "/about#core-values" },
         { name: t("header.aboutBackground"), href: "/about/background" },
-      ]
+      ],
     },
     { name: t("header.programs"), id: "programs", href: "/programs" },
     { name: t("header.news"), id: "news", href: "/news" },
@@ -87,10 +86,10 @@ export function Header({ activeSection }: HeaderProps) {
               className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 flex-shrink-0"
             />
             <div className={`flex flex-col min-w-0 ${isRTL ? "text-right" : ""}`}>
-              <h1 className="text-sm md:text-lg lg:text-xl font-bold text-brand-blue leading-tight truncate">
+              <h1 className="text-sm md:text-lg lg:text-xl font-bold text-brand-blue leading-tight whitespace-normal break-words">
                 Beyond Borders Empowerment
               </h1>
-              <p className="text-[10px] md:text-xs lg:text-sm text-gray-600 hidden sm:block truncate">
+              <p className="text-[10px] md:text-xs lg:text-sm text-gray-600 hidden sm:block whitespace-normal break-words">
                 {t("")}
               </p>
             </div>
@@ -100,26 +99,35 @@ export function Header({ activeSection }: HeaderProps) {
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navigationItems.map((item) => (
               item.hasDropdown ? (
-                <div 
+                <div
                   key={item.id}
                   className="relative"
                   onMouseEnter={handleDropdownEnter}
                   onMouseLeave={handleDropdownLeave}
                 >
-                  <button
+                  <div
                     className={`px-3 xl:px-4 py-2 rounded-lg text-sm xl:text-base font-medium transition-all duration-200 hover:bg-gray-100 flex items-center gap-1 ${
                       activeSection === item.id
                         ? "text-red-600 bg-red-50 border-b-2 border-red-600"
                         : "text-gray-700 hover:text-red-600"
                     }`}
                   >
-                    {item.name}
-                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
-                      aboutDropdownOpen ? "rotate-180" : ""
-                    }`} />
-                  </button>
+                    <Link href={item.href} className="leading-none">
+                      {item.name}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setAboutDropdownOpen((v) => !v)}
+                      className="p-1 rounded hover:bg-gray-200/60 transition-colors"
+                      aria-label="Toggle About menu"
+                    >
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${aboutDropdownOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                  </div>
                   {aboutDropdownOpen && (
-                    <div 
+                    <div
                       className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
                       onMouseEnter={handleDropdownEnter}
                       onMouseLeave={handleDropdownLeave}
@@ -187,19 +195,27 @@ export function Header({ activeSection }: HeaderProps) {
               {navigationItems.map((item) => (
                 item.hasDropdown ? (
                   <div key={item.id}>
-                    <button
-                      onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
-                      className={`w-full px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 flex items-center justify-between ${
+                    <div
+                      className={`w-full px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 flex items-center justify-between gap-2 ${
                         activeSection === item.id
                           ? "text-red-600 bg-red-50 border-l-4 border-red-600"
                           : "text-gray-700 hover:text-red-600 hover:bg-gray-50"
                       } ${isRTL ? "text-right border-r-4 border-l-0 flex-row-reverse" : ""}`}
                     >
-                      {item.name}
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
-                        aboutDropdownOpen ? "rotate-180" : ""
-                      }`} />
-                    </button>
+                      <Link href={item.href} onClick={handleMobileMenuClose} className="flex-1">
+                        {item.name}
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setAboutDropdownOpen(!aboutDropdownOpen)}
+                        className="p-1 rounded hover:bg-gray-200/60 transition-colors"
+                        aria-label="Toggle About menu"
+                      >
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${aboutDropdownOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                    </div>
                     {aboutDropdownOpen && (
                       <div className={`ml-4 mt-2 space-y-1 ${isRTL ? "mr-4 ml-0" : ""}`}>
                         {item.subItems?.map((subItem, idx) => (

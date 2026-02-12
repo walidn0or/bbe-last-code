@@ -347,7 +347,7 @@ export function DonationForm({ amount, donationType }: DonationFormProps) {
               onChange={(e) => handleInputChange('receiveUpdates', e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
-            <span className="text-sm text-gray-700">I would like to receive updates about BBE's impact</span>
+            <span className="text-sm text-gray-700">I would like to receive updates about BBE&apos;s impact</span>
           </label>
         </div>
       </div>

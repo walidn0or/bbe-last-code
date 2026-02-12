@@ -22,7 +22,7 @@ export const useLanguage = () => {
 }
 
 // Comprehensive translations
-const translations:any = {
+const translations: Record<Language, Record<string, string>> = {
   en: {
     // Header
     "header.home": "Home",

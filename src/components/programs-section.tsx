@@ -1,9 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GraduationCap, Stethoscope, Users, Heart, Globe, Award } from "lucide-react"
+import { GraduationCap, Stethoscope, Users, Heart, Globe, Award, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { images, getImage } from "@/config/images"
 import { InlineImageUpload } from "@/components/inline-image-upload"
@@ -11,7 +11,9 @@ import { InlineImageUpload } from "@/components/inline-image-upload"
 export function ProgramsSection() {
   const { t, isRTL } = useLanguage()
   const [isAdmin, setIsAdmin] = useState(false)
-  const [programImages, setProgramImages] = useState({
+  const [activeKey, setActiveKey] = useState<keyof typeof images.programs | null>(null)
+  const [selectedModalImage, setSelectedModalImage] = useState<string | null>(null)
+  const [programImages, setProgramImages] = useState<Record<ProgramKey, string>>({
     education: images.programs.education,
     healthcare: images.programs.healthcare,
     economic: images.programs.economic,
@@ -34,92 +36,312 @@ export function ProgramsSection() {
     }
   }, [])
 
-  const programs = [
-    {
-      title: t("programs.education"),
-      description: t("programs.educationDesc"),
-      icon: GraduationCap,
-      color: "blue",
-      key: "education" as const,
-      image: programImages.education,
-      features: [
-        t("programs.virtualClasses"),
-        t("programs.onGroundSchools"),
-        t("programs.stemEducation"),
-        t("programs.certifiedPrograms"),
+  const programs = useMemo(
+    () => [
+      {
+        title: t("programs.education"),
+        description: t("programs.educationDesc"),
+        icon: GraduationCap,
+        color: "blue",
+        key: "education" as const,
+        image: programImages.education,
+        features: [
+          t("programs.virtualClasses"),
+          t("programs.onGroundSchools"),
+          t("programs.stemEducation"),
+          t("programs.certifiedPrograms"),
+        ],
+      },
+      {
+        title: t("programs.healthcare"),
+        description: t("programs.healthcareDesc"),
+        icon: Stethoscope,
+        color: "green",
+        key: "healthcare" as const,
+        image: programImages.healthcare,
+        features: [
+          t("programs.mobileHealthClinics"),
+          t("programs.mentalHealthCounseling"),
+          t("programs.healthcareCapacity"),
+          t("programs.emergencyMedical"),
+        ],
+      },
+      {
+        title: t("programs.economic"),
+        description: t("programs.economicDesc"),
+        icon: Users,
+        color: "purple",
+        key: "economic" as const,
+        image: programImages.economic,
+        features: [
+          t("programs.businessTraining"),
+          t("programs.microfinanceAccess"),
+          t("programs.freelancePlatforms"),
+          t("programs.technicalSkills"),
+        ],
+      },
+      {
+        title: t("programs.orphans"),
+        description: t("programs.orphansDesc"),
+        icon: Heart,
+        color: "red",
+        key: "orphans" as const,
+        image: programImages.orphans,
+        features: [
+          t("programs.educationalSupport"),
+          t("programs.nutritionalPrograms"),
+          t("programs.skillsTraining"),
+          t("programs.emotionalSupport"),
+        ],
+      },
+      {
+        title: t("programs.rights"),
+        description: t("programs.rightsDesc"),
+        icon: Globe,
+        color: "orange",
+        key: "rights" as const,
+        image: programImages.rights,
+        features: [
+          t("programs.rightsWorkshops"),
+          t("programs.documentationEfforts"),
+          t("programs.communityAdvocacy"),
+          t("programs.policyResearch"),
+        ],
+      },
+      {
+        title: t("programs.emergency"),
+        description: t("programs.emergencyDesc"),
+        icon: Award,
+        color: "yellow",
+        key: "emergency" as const,
+        image: programImages.emergency,
+        features: [
+          t("programs.foodShelter"),
+          t("programs.medicalSupplies"),
+          t("programs.disasterResponse"),
+          t("programs.recoveryPlanning"),
+        ],
+      },
+    ],
+    [programImages, t]
+  )
+
+  const activeProgram = useMemo(() => programs.find((p) => p.key === activeKey) || null, [activeKey, programs])
+
+  type ProgramContentBlock =
+    | { type: "p"; text: string }
+    | { type: "h3"; text: string }
+    | { type: "ul"; items: string[] }
+
+  type ProgramKey = keyof typeof images.programs
+  type ProgramLongContent = Partial<Record<ProgramKey, readonly ProgramContentBlock[]>>
+
+  const programLongContent: ProgramLongContent = useMemo(() => {
+    return {
+      education: [
+        { type: "h3", text: "Pathways Towards Opportunities" },
+        {
+          type: "p",
+          text: "Pathways Towards Opportunities is our flagship English and academic mobility program, created to connect resilient Afghan girls with the global education system. Since early 2025, we have supported over 300 students across Afghanistan, Iran, and Pakistan. The program is structured into Basic, Intermediate, and Advanced levels, allowing each student to receive instruction based on her academic background, learning pace, and long-term goals through need-based assessment.",
+        },
+        {
+          type: "p",
+          text: "At the core of this initiative is our IELTS Preparation Program, designed specifically for Afghan girls whose education has been interrupted by systemic exclusion. This program goes beyond teaching English. It is an academic empowerment pathway that helps students regain access to higher education, international scholarships, and future professional opportunities.",
+        },
+        {
+          type: "p",
+          text: "Classes are delivered by a carefully selected team of qualified mentors based both inside Afghanistan and internationally. All instruction takes place through secure and encrypted online platforms, ensuring student safety, privacy, and emotional well-being. These virtual classrooms are not only spaces for learning, but also safe environments for mentorship, where students receive individual guidance, connect with role models, and begin building international academic and professional networks, often for the first time.",
+        },
+        {
+          type: "p",
+          text: "Our mentors provide focused IELTS training aligned with official exam standards, alongside regular assessments, personalized feedback, and ongoing encouragement. This approach helps students work toward competitive band scores, opening doors to fully funded scholarships, university admissions, and academic mobility pathways.",
+        },
+        {
+          type: "p",
+          text: "We believe language learning can be a powerful tool for empowerment, and English in particular has proven to be a master-key that unlocks global opportunities. By transforming English proficiency into a practical and measurable pathway toward mobility and independence, Pathways Towards Opportunities does more than teach a language—it restores agency, rebuilds academic futures, and connects Afghan girls to a wider world that values their talent, resilience, and potential.",
+        },
+        { type: "h3", text: "Accredited Secondary and High School Education (Grades 7–12)" },
+        {
+          type: "p",
+          text: "We are committed to ensuring that the education of Afghan girls does not end due to circumstance, displacement, or systemic exclusion. Our Accredited Secondary and High School Program is designed to protect academic continuity, preserve learning momentum, and keep future pathways to higher education open—regardless of where students are currently based.",
+        },
+        {
+          type: "p",
+          text: "The program operates through a carefully structured dual-pathway model. Through partnerships with accredited secondary institutions across Europe, Asia, and the United States, eligible students are supported to pursue internationally recognized diplomas and transferable academic credits. These credentials are essential for students seeking admission to universities abroad and ensure that their academic work is formally validated and portable.",
+        },
+        {
+          type: "p",
+          text: "At the same time, we deliver a comprehensive Afghan national curriculum for students in Grades 7 through 12, adapted for safe and remote learning environments. This parallel track ensures that students inside Afghanistan remain academically aligned with national learning standards, safeguarding their ability to re-enter formal education systems whenever local or international opportunities become available.",
+        },
+        {
+          type: "p",
+          text: "Instruction is delivered through secure virtual classrooms, supported by trained educators who understand both the academic and emotional realities facing Afghan students. Beyond subject teaching, the program includes regular assessments, academic monitoring, and documented progress tracking, allowing us to maintain educational quality and provide students with clear academic records for future use.",
+        },
+        {
+          type: "p",
+          text: "We place strong emphasis on student safeguarding, privacy, and psychological well-being. Learning environments are intentionally designed to be discreet, supportive, and flexible, allowing students to continue their studies without compromising their safety. Academic guidance and mentoring are embedded throughout the program to help students plan realistic next steps, whether toward university, alternative certification, or bridging programs.",
+        },
+        {
+          type: "p",
+          text: "By keeping students intellectually engaged, academically prepared, and credential-ready, this program ensures that Afghan girls do not lose years of education to forces beyond their control. Instead, they remain positioned to transition confidently into higher education, vocational training, or international study the moment opportunity arises.",
+        },
       ],
-    },
-    {
-      title: t("programs.healthcare"),
-      description: t("programs.healthcareDesc"),
-      icon: Stethoscope,
-      color: "green",
-      key: "healthcare" as const,
-      image: programImages.healthcare,
-      features: [
-        t("programs.mobileHealthClinics"),
-        t("programs.mentalHealthCounseling"),
-        t("programs.healthcareCapacity"),
-        t("programs.emergencyMedical"),
+      economic: [
+        { type: "h3", text: "Empowerment Through Entrepreneurship" },
+        {
+          type: "p",
+          text: "At Beyond Borders Empowerment, we believe that sustainable change begins within communities. When women are given the tools, trust, and opportunities to lead economically, they strengthen not only their own lives, but also their families and communities. Our Empowerment Through Entrepreneurship program is designed to advance marginalized women toward economic independence, resilience, and long-term stability.",
+        },
+        {
+          type: "p",
+          text: "The program focuses on building local capacity and community ownership through a combination of microfinance assistance, business training, financial literacy, and ongoing mentorship. Rather than offering one-time support, we work closely with women entrepreneurs to help them develop viable business models, strengthen decision-making skills, and adapt to challenging economic environments.",
+        },
+        {
+          type: "p",
+          text: "To date, Beyond Borders Empowerment has supported 11 women-led startups, many of which are rooted in traditional skills while embracing modern markets and innovation. These businesses create income opportunities not only for their founders, but also for other women within their communities.",
+        },
+        { type: "h3", text: "Women-Led Startups Supported by BBE" },
+        {
+          type: "ul",
+          items: [
+            "Dursa – Founded by Sheila Amiri, Dursa is a collective representing eight women-led ventures specializing in home décor, jewelry, scarves, and coffee art.",
+            "Tough Hands Craft – Founded by Anita Noor, focusing on handmade crafts and jewelry.",
+            "Nafis – Founded by Hadia Ghawsi, a youth-led Afghan clothing brand blending cultural identity with contemporary design.",
+            "Home Decor Business – Led by Robia Zahida Faizan, highlighting traditional Nooristani woodwork and engraving.",
+            "Azin – Founded by Parwana, offering traditional fashion pieces including hijabs and chapans.",
+            "F.F Café – Founded by Farwa Farzan, known for homemade baked goods and beverages.",
+            "Qizil – Founded by Jada, producing locally branded laptop bags and purses.",
+            "Lalo – Founded by Hadia Nazare, providing handmade babywear essentials.",
+            "Afghan Handmade Jewelry – Founded by Firoza Akbari, now involving over 60 young women in jewelry production and income generation.",
+          ],
+        },
+        { type: "h3", text: "Impact Beyond Income" },
+        {
+          type: "p",
+          text: "Each supported business represents more than an economic activity, it is a step toward dignity, self-reliance, and leadership. By investing in women entrepreneurs, we help preserve traditional skills, encourage innovation, and create pathways for women to participate meaningfully in local economies, even in highly constrained contexts. Through this program, Beyond Borders Empowerment continues to demonstrate that when women are supported as economic actors, entire communities benefit.",
+        },
       ],
-    },
-    {
-      title: t("programs.economic"),
-      description: t("programs.economicDesc"),
-      icon: Users,
-      color: "purple",
-      key: "economic" as const,
-      image: programImages.economic,
-      features: [
-        t("programs.businessTraining"),
-        t("programs.microfinanceAccess"),
-        t("programs.freelancePlatforms"),
-        t("programs.technicalSkills"),
+      orphans: [
+        { type: "h3", text: "Bright Futures: Our Orphan Support Program" },
+        {
+          type: "p",
+          text: "BBE has long served as a cornerstone for the community, particularly for those in dire need and the most marginalized. Guided by our commitment to reach, inspire, and create change, we are honored to run programs supporting orphaned children, not only as one of society’s most vulnerable groups but also as a core priority. While no initiative can fully replace the love and support of parents, our efforts aim to bring smiles to children’s faces and light the path toward a brighter future. Our support focuses on education, capacity building, emotional wellbeing, nutrition, clothing, and educational supplies, creating meaningful opportunities for children to learn, grow, and thrive.",
+        },
+        {
+          type: "p",
+          text: "On February 25, 2025, BBE had the privilege of visiting Arezo Ayenda and Mirza Hakimi Orphanages in Qala-e-Fathullah, Kabul, to bring warmth, nourishment, and happiness to 150 orphaned boys and girls.",
+        },
+        {
+          type: "p",
+          text: "The event began with the distribution of warm clothing, carefully selected to protect the children during the cold winter months. Each child also received a nutritious lunch, ensuring they had a satisfying meal and the energy to participate in the day’s activities.",
+        },
+        {
+          type: "p",
+          text: "Beyond meeting basic needs, BBE prioritized the emotional and creative well-being of the children. The day featured a series of arts and crafts activities, allowing the children to express themselves creatively, develop fine motor skills, and build confidence. The laughter and excitement that filled the orphanages reflected the positive impact of combining care with playful learning.",
+        },
+        {
+          type: "p",
+          text: "This outreach was more than a one-day event—it represented BBE’s ongoing commitment to improving the lives of vulnerable children in Afghanistan. By providing essential resources and creating moments of joy, BBE aims to nurture both the physical well-being and emotional resilience of orphaned children, helping them feel valued, supported, and empowered. The event highlighted the importance of community engagement and compassion, as every child left with not only tangible support but also a sense of inclusion, care, and encouragement for the future.",
+        },
+        {
+          type: "p",
+          text: "On the 25th of Ramadan, 24 March 2025, we had the honor of sharing Iftar with children at Mirza Hakimi and Arezo Ayenda Orphanages. On a night rooted in reflection, compassion, and togetherness, our team came together to ensure that these children were not alone at the moment of breaking their fast.",
+        },
+        {
+          type: "p",
+          text: "We provided warm, freshly prepared meals, but more importantly, we offered our presence. This initiative was not only about food, it was about standing beside these young girls and boys, acknowledging their dignity, and sharing a moment of care during one of the most spiritually meaningful times of the year.",
+        },
+        {
+          type: "p",
+          text: "In the series of “Bright Futures: Our Orphan Support Program,” on June 1, 2025, 108 orphaned children, 37 girls and 73 boys, celebrated Eid and Children’s Day at Arezo Ayenda and Mirza Hakimi Orphanages in Qala-e-Fathullah, Kabul. The celebrations were filled with joy, laughter, and a sense of community, providing the children with memorable moments of festivity and belonging.",
+        },
+        {
+          type: "p",
+          text: "After conducting a careful needs assessment, BBE ensured that each child received essential items they had requested, including shoes, school supplies, and personal necessities, supporting both their education and everyday well-being. Events like these reflect BBE’s ongoing commitment to nurturing and empowering orphaned children, giving them not only moments of happiness but also tools and support to build brighter futures. Through our initiatives, we strive to create lasting impact, hope, and opportunity in the lives of the most vulnerable children in our community.",
+        },
       ],
-    },
-    {
-      title: t("programs.orphans"),
-      description: t("programs.orphansDesc"),
-      icon: Heart,
-      color: "red",
-      key: "orphans" as const,
-      image: programImages.orphans,
-      features: [
-        t("programs.educationalSupport"),
-        t("programs.nutritionalPrograms"),
-        t("programs.skillsTraining"),
-        t("programs.emotionalSupport"),
+      healthcare: [
+        { type: "h3", text: "Healthcare Support" },
+        {
+          type: "p",
+          text: "BBE’s healthcare initiatives aim to provide comprehensive mental and physical health support for underserved communities. Our focus is on reaching vulnerable populations, including those in remote areas, women, children, and children.",
+        },
+        {
+          type: "p",
+          text: "BBE actively supports families who are unable to afford their medical expenses and essential medications, particularly in emergency situations. Our healthcare initiatives prioritize women, children, and other vulnerable members of the community, ensuring that urgent medical needs are met when resources are scarce. By providing access to treatment, medications, and guidance, BBE helps alleviate the burden on families facing health crises, promoting both physical and mental well-being and reinforcing a safety net for those most at risk.",
+        },
       ],
-    },
-    {
-      title: t("programs.rights"),
-      description: t("programs.rightsDesc"),
-      icon: Globe,
-      color: "orange",
-      key: "rights" as const,
-      image: programImages.rights,
-      features: [
-        t("programs.rightsWorkshops"),
-        t("programs.documentationEfforts"),
-        t("programs.communityAdvocacy"),
-        t("programs.policyResearch"),
-      ],
-    },
-    {
-      title: t("programs.emergency"),
-      description: t("programs.emergencyDesc"),
-      icon: Award, // replaced HandHeart with Award
-      color: "yellow",
-      key: "emergency" as const,
-      image: programImages.emergency,
-      features: [
-        t("programs.foodShelter"),
-        t("programs.medicalSupplies"),
-        t("programs.disasterResponse"),
-        t("programs.recoveryPlanning"),
-      ],
-    },
-  ]
+    } as const satisfies ProgramLongContent
+  }, [])
+
+  const renderLongContent = (key: ProgramKey) => {
+    const blocks = programLongContent[key]
+
+    if (!blocks?.length) return null
+
+    return (
+      <div className="prose max-w-none">
+        {blocks.map((b, idx) => {
+          if (b.type === "h3") {
+            return (
+              <h3 key={idx} className="text-gray-900">
+                {b.text}
+              </h3>
+            )
+          }
+          if (b.type === "ul") {
+            return (
+              <ul key={idx}>
+                {b.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )
+          }
+          return (
+            <p key={idx} className="text-gray-700 leading-relaxed">
+              {b.text}
+            </p>
+          )
+        })}
+      </div>
+    )
+  }
+
+  const activeGallery = useMemo(() => {
+    if (!activeProgram) return []
+    const fromConfig = images.programsGalleries?.[activeProgram.key] ?? []
+    return Array.from(fromConfig).filter(Boolean)
+  }, [activeProgram])
+
+  const activeImage = useMemo(() => {
+    if (!activeProgram) return images.fallback.placeholder
+    return getImage(activeProgram.image, images.fallback.placeholder)
+  }, [activeProgram])
+
+  const modalImages = useMemo(() => {
+    const base = [activeImage, ...activeGallery]
+    const uniq: string[] = []
+    for (const src of base) {
+      if (!src) continue
+      if (!uniq.includes(src)) uniq.push(src)
+    }
+    return uniq
+  }, [activeImage, activeGallery])
+
+  const closeModal = () => {
+    setActiveKey(null)
+    setSelectedModalImage(null)
+  }
+
+  useEffect(() => {
+    if (!activeProgram) {
+      setSelectedModalImage(null)
+      return
+    }
+
+    setSelectedModalImage(activeImage)
+  }, [activeProgram, activeImage])
 
   return (
     <section id="programs" className="py-12 md:py-16 lg:py-20 bg-white scroll-mt-20">
@@ -133,11 +355,12 @@ export function ProgramsSection() {
           {programs.map((program, index) => (
             <Card
               key={index}
-              className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white overflow-hidden hover:-translate-y-1"
+              className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white overflow-hidden hover:-translate-y-1 cursor-pointer"
+              onClick={() => setActiveKey(program.key)}
             >
               <div className="relative overflow-hidden">
                 <Image
-                  src={getImage(program.image)}
+                  src={getImage(program.image, images.fallback.placeholder)}
                   alt={program.title}
                   width={400}
                   height={250}
@@ -232,6 +455,141 @@ export function ProgramsSection() {
           ))}
         </div>
       </div>
+
+      {activeProgram && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeModal}></div>
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto z-10">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-4 md:p-6 flex justify-between items-start gap-4 z-10">
+              <div className="flex-1">
+                <p className="text-xs uppercase tracking-[0.2em] text-red-600 font-semibold mb-2">{t("programs.title")}</p>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">{activeProgram.title}</h3>
+              </div>
+              <button
+                onClick={closeModal}
+                className="text-gray-500 hover:text-gray-800 p-2 rounded-full hover:bg-gray-100 flex-shrink-0"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5 md:h-6 md:w-6" />
+              </button>
+            </div>
+
+            <div className="p-4 md:p-6">
+              <div className="text-sm md:text-base leading-relaxed mb-6">
+                {renderLongContent(activeProgram.key) || (
+                  <p className="text-gray-700">{activeProgram.description}</p>
+                )}
+              </div>
+
+              <div className="relative rounded-lg overflow-hidden shadow-lg bg-white mb-4">
+                <div className="relative h-64 md:h-[420px] bg-gradient-to-br from-gray-50 via-white to-slate-100 flex items-center justify-center">
+                  <Image
+                    src={getImage(selectedModalImage || activeImage, images.fallback.placeholder)}
+                    alt={`${activeProgram.title} image`}
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 1024px) 900px, 100vw"
+                  />
+
+                  {modalImages.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const current = selectedModalImage || activeImage
+                          const i = modalImages.indexOf(current)
+                          const prev = modalImages[(i <= 0 ? modalImages.length : i) - 1] || modalImages[0]
+                          setSelectedModalImage(prev)
+                        }}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 rounded-full w-9 h-9 flex items-center justify-center shadow transition"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const current = selectedModalImage || activeImage
+                          const i = modalImages.indexOf(current)
+                          const next = modalImages[(i + 1) % modalImages.length] || modalImages[0]
+                          setSelectedModalImage(next)
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 rounded-full w-9 h-9 flex items-center justify-center shadow transition"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </>
+                  )}
+
+                  {isAdmin && (
+                    <div className="absolute bottom-3 left-3">
+                      <InlineImageUpload
+                        label="Change program image"
+                        storageKey={`programs_${activeProgram.key}_image_url`}
+                        onUploaded={(url) => {
+                          setProgramImages((prev) => ({ ...prev, [activeProgram.key]: url }))
+                          if (typeof window !== "undefined") {
+                            localStorage.setItem(`programs_${activeProgram.key}_image_url`, url)
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-red-600 font-semibold mb-3">{t("programs.title")}</p>
+                  <ul className="space-y-2">
+                    {activeProgram.features.map((feature, idx) => (
+                      <li
+                        key={idx}
+                        className={`flex items-center text-sm text-gray-700 ${isRTL ? "flex-row-reverse" : ""}`}
+                      >
+                        <span className={`w-2 h-2 rounded-full bg-red-500 ${isRTL ? "ml-3" : "mr-3"}`} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {modalImages.length > 1 && (
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-red-600 font-semibold mb-3">Gallery</p>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                      {modalImages.map((src, idx) => (
+                        <button
+                          key={`${src}-${idx}`}
+                          type="button"
+                          onClick={() => setSelectedModalImage(src)}
+                          className={`relative rounded-lg overflow-hidden border bg-gray-50 transition-colors ${
+                            (selectedModalImage || activeImage) === src
+                              ? "border-red-500 ring-2 ring-red-200"
+                              : "border-gray-200 hover:border-gray-300"
+                          }`}
+                          aria-label={`View ${activeProgram.title} image ${idx + 1}`}
+                        >
+                          <div className="relative h-20 sm:h-24">
+                            <Image
+                              src={getImage(src, images.fallback.placeholder)}
+                              alt={`${activeProgram.title} thumbnail ${idx + 1}`}
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 200px, (min-width: 640px) 25vw, 33vw"
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

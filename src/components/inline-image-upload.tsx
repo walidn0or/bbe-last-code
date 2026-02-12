@@ -35,8 +35,9 @@ export function InlineImageUpload({ label = "Change Image", storageKey, onUpload
       } else {
         throw new Error("No URL returned")
       }
-    } catch (err: any) {
-      setError(err.message || "Upload failed")
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Upload failed"
+      setError(message)
     } finally {
       setUploading(false)
       e.target.value = ""

@@ -43,7 +43,17 @@ export function VideosSection() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [showAllVideos, setShowAllVideos] = useState(false)
 
-  const videos: any = [
+  type VideoItem = {
+    id: number
+    title: string
+    thumbnail: string
+    duration: string
+    views: string
+    description: string
+    featured?: boolean
+  }
+
+  const videos: VideoItem[] = [
     {
       id: 1,
       title: "Virtual Education Project Launch Event - London 2025",
@@ -99,8 +109,8 @@ export function VideosSection() {
     },
   ]
 
-  const featuredVideo: any = videos.find((video: any) => video.featured) || videos[0]
-  const otherVideos: any = videos.filter((video: any) => !video.featured)
+  const featuredVideo = videos.find((video) => video.featured) || videos[0]
+  const otherVideos = videos.filter((video) => !video.featured)
 
   return (
     <>
@@ -200,7 +210,7 @@ export function VideosSection() {
                   showAllVideos ? "max-h-none" : "max-h-96 overflow-hidden"
                 }`}
               >
-                {otherVideos.slice(0, showAllVideos ? otherVideos.length : 3).map((video: any) => (
+                {otherVideos.slice(0, showAllVideos ? otherVideos.length : 3).map((video) => (
                   <Card
                     key={video.id}
                     className="group hover:shadow-xl transition-all duration-300 border-0 bg-white overflow-hidden hover:-translate-y-1 cursor-pointer"
@@ -259,7 +269,7 @@ export function VideosSection() {
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-scale-in">
             <div className={`flex items-center justify-between p-4 md:p-6 border-b ${isRTL ? "flex-row-reverse" : ""}`}>
               <h3 className={`text-lg md:text-xl font-bold text-gray-900 pr-4 ${isRTL ? "text-right pl-4 pr-0" : ""}`}>
-                {videos.find((v: any) => v.id.toString() === selectedVideo)?.title}
+                {videos.find((v) => v.id.toString() === selectedVideo)?.title}
               </h3>
               <Button
                 variant="ghost"
@@ -275,7 +285,7 @@ export function VideosSection() {
                 <Play className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 opacity-50" />
                 <p className="text-base md:text-lg mb-2">Video Player Placeholder</p>
                 <p className="text-sm opacity-75 max-w-md mx-auto">
-                  {videos.find((v: any) => v.id.toString() === selectedVideo)?.description}
+                  {videos.find((v) => v.id.toString() === selectedVideo)?.description}
                 </p>
               </div>
             </div>
@@ -285,11 +295,11 @@ export function VideosSection() {
               >
                 <div className={`flex items-center ${isRTL ? "flex-row-reverse" : ""}`}>
                   <Eye className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? "ml-1" : "mr-1"}`} />
-                  {videos.find((v: any) => v.id.toString() === selectedVideo)?.views} {t("videos.views")}
+                  {videos.find((v) => v.id.toString() === selectedVideo)?.views} {t("videos.views")}
                 </div>
                 <div className={`flex items-center ${isRTL ? "flex-row-reverse" : ""}`}>
                   <Clock className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? "ml-1" : "mr-1"}`} />
-                  {videos.find((v: any) => v.id.toString() === selectedVideo)?.duration}
+                  {videos.find((v) => v.id.toString() === selectedVideo)?.duration}
                 </div>
               </div>
             </div>

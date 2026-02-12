@@ -95,8 +95,8 @@ export function OurWork() {
     const fromStorage = workGalleries[key]
     if (Array.isArray(fromStorage) && fromStorage.length > 0) return fromStorage
 
-    const fromConfig = (images.ourWorkGallery?.[activeItem.key] as string[] | undefined) || []
-    return Array.isArray(fromConfig) ? fromConfig.filter(Boolean) : []
+    const fromConfig = images.ourWorkGallery?.[activeItem.key] ?? []
+    return Array.from(fromConfig).filter(Boolean)
   }, [activeItem, workGalleries])
 
   const modalImages = useMemo(() => {

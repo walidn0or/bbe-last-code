@@ -23,7 +23,6 @@ export function HeroSection({ scrollToSection }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center py-10 md:py-16 lg:py-20">
-      {/* Full-bleed video background */}
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -52,7 +51,9 @@ export function HeroSection({ scrollToSection }: HeroSectionProps) {
           <div className="absolute inset-0 bg-white/5 mix-blend-overlay pointer-events-none"></div>
           <div className={`relative flex flex-col items-center text-center gap-5 md:gap-7 p-6 md:p-10 ${isRTL ? "lg:text-right" : "lg:text-left"}`}>
             <h1
-              className={`max-w-4xl mx-auto text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight drop-shadow-lg ${isRTL ? "text-right" : ""}`}
+              className={`max-w-4xl mx-auto text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight drop-shadow-lg ${
+                isRTL ? "text-right" : ""
+              }`}
             >
               <span className="text-brand-blue">{t("hero.title1")}</span>
               <br />
@@ -60,17 +61,16 @@ export function HeroSection({ scrollToSection }: HeroSectionProps) {
               <br />
               <span className="text-brand-blue">{t("hero.title3")}</span>
             </h1>
-            <p className={`text-base md:text-lg lg:text-xl text-white/95 leading-relaxed max-w-4xl mx-auto font-medium mb-4 ${isRTL ? "text-right" : ""}`}>
-              (Empowering Girls • Helping Communities • Transforming Lives)
-            </p>
+
             <p
-              className={`text-sm md:text-base lg:text-lg text-white/90 leading-relaxed max-w-3xl mx-auto ${isRTL ? "text-right" : ""}`}
+              className={`text-sm md:text-base lg:text-lg text-white/90 leading-relaxed max-w-3xl mx-auto ${
+                isRTL ? "text-right" : ""
+              }`}
             >
               Beyond Borders Empowerment (BBE) is a women-led, non-profit organisation dedicated to fostering systemic change in marginalized communities. By centering women, youth, and children as agents of their own development, BBE addresses entrenched inequities arising from conflict, poverty, and social exclusion. Through an integrated portfolio of initiatives—including inclusive quality education, equitable healthcare access, economic empowerment, and context-driven innovation. BBE cultivates sustainable pathways for resilience, social transformation, sustainability and long-term community prosperity.
             </p>
-            <div
-              className={`flex flex-col sm:flex-row gap-2 md:gap-3 max-w-md mx-auto justify-center ${isRTL ? "sm:flex-row-reverse" : ""}`}
-            >
+
+            <div className={`flex flex-col sm:flex-row gap-2 md:gap-3 max-w-md mx-auto justify-center ${isRTL ? "sm:flex-row-reverse" : ""}`}>
               <Button
                 size="lg"
                 variant="default"

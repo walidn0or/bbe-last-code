@@ -152,7 +152,7 @@ function DonationSuccessContent() {
                     <h3 className="font-semibold text-blue-900 mb-2">Monthly Donation Setup</h3>
                     <p className="text-blue-800 text-sm">
                       Your ${donation.amount} monthly donation has been set up successfully. 
-                      You'll receive an email receipt for each monthly charge. You can update 
+                      You&apos;ll receive an email receipt for each monthly charge. You can update 
                       or cancel your monthly donation at any time by contacting us.
                     </p>
                   </div>
@@ -173,7 +173,7 @@ function DonationSuccessContent() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Email Receipt</h3>
                   <p className="text-gray-600 text-sm">
-                    You'll receive a detailed tax-deductible receipt via email within the next few minutes.
+                    You&apos;ll receive a detailed tax-deductible receipt via email within the next few minutes.
                   </p>
                 </div>
               </div>
@@ -185,7 +185,7 @@ function DonationSuccessContent() {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Impact Updates</h3>
                   <p className="text-gray-600 text-sm">
-                    We'll keep you informed about how your donation is making a difference in our communities.
+                    We&apos;ll keep you informed about how your donation is making a difference in our communities.
                   </p>
                 </div>
               </div>

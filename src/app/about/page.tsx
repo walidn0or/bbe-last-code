@@ -3,7 +3,6 @@
 import { LanguageProvider } from "@/contexts/language-context"
 import { Header } from "@/components/header"
 import { AboutSection } from "@/components/about-section"
-import { TeamSection } from "@/components/team-section"
 import { Footer } from "@/components/footer"
 
 export default function AboutPage() {
@@ -39,7 +38,6 @@ export default function AboutPage() {
         <Header activeSection="about" scrollToSection={handleNavigation} />
         <main>
           <AboutSection />
-          <TeamSection />
         </main>
         <Footer scrollToSection={handleNavigation} />
       </div>

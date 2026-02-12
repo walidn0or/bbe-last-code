@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+
 import { MediaUpload } from "@/components/media-upload"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -91,7 +92,7 @@ export default function UploadPage() {
     {
       key: "article5",
       title: "Article 5",
-      description: "Women's Entrepreneurship Program Shows Remarkable Success",
+      description: "Women’s Entrepreneurship Program Shows Remarkable Success",
       category: "Economic Empowerment",
       required: false,
       acceptedTypes: "image/*",
@@ -177,7 +178,7 @@ export default function UploadPage() {
                         onLoadedMetadata={() => {
                           console.log('✅ Video loaded:', item.title)
                         }}
-                        onError={(e: any) => {
+                        onError={() => {
                           console.error('❌ Video failed:', item.title, uploadedFiles[item.key])
                         }}
                       >

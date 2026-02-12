@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Phone, Mail, Globe, MapPin, Facebook, Linkedin, Instagram, MessageCircle } from "lucide-react"
+import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, MessageCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 interface ContactSectionProps {
@@ -46,13 +46,14 @@ export function ContactSection({ scrollToSection }: ContactSectionProps) {
         body: formData,
       })
       if (!res.ok) {
-        const data = await res.json().catch(() => ({} as any))
+        const data = (await res.json().catch(() => ({} as { error?: string })))
         throw new Error(data?.error || "Submission failed. Please try again.")
       }
       setSuccess("Thanks! Your message has been sent.")
       form.reset()
-    } catch (err: any) {
-      setError(err?.message || "Something went wrong. Please try again.")
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again."
+      setError(message)
     } finally {
       setSubmitting(false)
     }

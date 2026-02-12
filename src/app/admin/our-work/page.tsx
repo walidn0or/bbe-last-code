@@ -10,7 +10,13 @@ import { images, getImage } from "@/config/images"
 
 export const dynamic = 'force-dynamic'
 
-const workItems = [
+type WorkItemKey = keyof typeof images.ourWork
+
+const workItems: Array<{
+  key: WorkItemKey
+  title: string
+  description: string
+}> = [
   {
     key: "menstrualHygiene",
     title: "Breaking the Stereotypes",
@@ -44,8 +50,8 @@ const workItems = [
 ]
 
 export default function OurWorkUploadPage() {
-  const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: string}>({})
-  const [galleryFiles, setGalleryFiles] = useState<{[key: string]: string[]}>({})
+  const [uploadedFiles, setUploadedFiles] = useState<Partial<Record<WorkItemKey, string>>>({})
+  const [galleryFiles, setGalleryFiles] = useState<Partial<Record<WorkItemKey, string[]>>>({})
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -58,15 +64,17 @@ export default function OurWorkUploadPage() {
         const galleryStr = localStorage.getItem(`our_work_${item.key}_gallery`)
         if (galleryStr) {
           try {
-            const gallery = JSON.parse(galleryStr)
-            setGalleryFiles((prev) => ({ ...prev, [item.key]: gallery }))
+            const parsed = JSON.parse(galleryStr) as unknown
+            if (Array.isArray(parsed)) {
+              setGalleryFiles((prev) => ({ ...prev, [item.key]: parsed.filter(Boolean) as string[] }))
+            }
           } catch {}
         }
       })
     }
   }, [])
 
-  const handleFileUploaded = (key: string, url: string) => {
+  const handleFileUploaded = (key: WorkItemKey, url: string) => {
     setUploadedFiles(prev => ({
       ...prev,
       [key]: url
@@ -76,7 +84,7 @@ export default function OurWorkUploadPage() {
     }
   }
 
-  const handleGalleryUploaded = (key: string, url: string) => {
+  const handleGalleryUploaded = (key: WorkItemKey, url: string) => {
     const currentGallery = galleryFiles[key] || []
     const newGallery = [...currentGallery, url]
     setGalleryFiles(prev => ({
@@ -88,7 +96,7 @@ export default function OurWorkUploadPage() {
     }
   }
 
-  const removeGalleryImage = (key: string, index: number) => {
+  const removeGalleryImage = (key: WorkItemKey, index: number) => {
     const currentGallery = galleryFiles[key] || []
     const newGallery = currentGallery.filter((_, i) => i !== index)
     setGalleryFiles(prev => ({

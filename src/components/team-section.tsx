@@ -34,7 +34,7 @@ const teamMembers: TeamMember[] = [
     name: "Emma Nylander",
     role: "Trustee and Strategy Analyst",
     bio: "Emma Nylander is migration and human rights specialist with a strong focus on legal and policy impact. She holds an MSc in Global Migration from University College London, where her academic research examined migration governance and the lived experiences of displaced people, reflecting her deep commitment to understanding the intersection of policy, protection, and human dignity. In addition to her academic work, Emma has substantial practical experience supporting displaced and marginalised communities. While studying, she volunteered with the British Red Cross, providing direct support to young refugees and asylum seekers in the UK. She also led projects at Vocal Communities addressing the challenges faced by migrant women, promoting inclusive social change and community cohesion. Currently, Emma works at Centuro Global, where she supports initiatives designed to make global mobility more transparent and people centred. In this role, she contributes to efforts that expand equitable access to opportunities and strengthen the rights of mobile communities worldwide. Committed to the belief that borders should not determine human value, Emma champions inclusive policies and practices that empower women, girls, and marginalised populations.",
-    imageUrl: "/images/members/female.png",
+    imageUrl: images.about.team.emma,
   },
   {
     key: "farangis-fariwar",
@@ -90,14 +90,14 @@ const teamMembers: TeamMember[] = [
     name: "Mozhgan Raoufi",
     role: "Graphic Designer",
     bio: "Mozhgan Raoufi is a focused and organized professional with experience in program support, teaching, administration, and graphic design. She is currently working as a Graphic Designer at Beyond Borders Empowerment (BBE). Mozhgan has worked as a Program Assistant at CRDSA in Herat, facilitating communication, organizing project files, monitoring reports, and supporting social media content creation. She began her career as a Program Intern at CRDSA, gaining experience in proposal review, CV screening, and office administration.",
-    imageUrl: "/images/members/female.png",
+    imageUrl: images.about.team.member1,
   },
   {
     key: "bahar-sadat-rahimi",
     name: "Bahar Sadat Rahimi",
     role: "HR Manager",
     bio: "Bahar Sadat Rahimi is an experienced HR professional with a Master's in Business Administration from Kardan University and a Bachelor's in Mathematics from Kabul University. She currently works as the Human Resources manager, specializing in training, development, and safeguarding, and has extensive experience in HR processes, recruitment, onboarding, performance management, and staff capacity building. Bahar has also worked with the Appointment Board of Independent Administrative Reform and Civil Service Commission, managing recruitment strategies, data analysis, and reporting. Earlier, she gained experience in finance and administration with Afghanistan Relief Organization.",
-    imageUrl: "/images/members/female.png",
+    imageUrl: images.about.team.member1,
   },
   {
     key: "hamasa-noorzai",
@@ -132,7 +132,7 @@ const teamMembers: TeamMember[] = [
     name: "Mana Hiruta",
     role: "Program Officer - London",
     bio: "Politics and International Relations BSc student at UCL; multiple committee roles in student organizations and volunteering works for social causes; Co-Founder and former Director of TEDxYouth Shibuya.",
-    imageUrl: "/images/members/female.png",
+    imageUrl: images.about.team.member1,
   },
 ]
 

@@ -135,11 +135,16 @@ export function AboutSection() {
                 Beyond Borders Empowerment (BBE) is a registered nonprofit organization founded in early 2023 by a dedicated team of professionals, including educators, university professors, writers, medical doctors, journalists, human rights defenders, and legal experts. BBE is built on the philosophy and principles of human rights, social justice, respect for human dignity, and collective efforts to foster growth and empowerment.
               </p>
               <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed">
-                At BBE, we work tirelessly towards sustainable outcomes, and we believe in the principle that "we teach our communities to fish, instead of giving them a fish." We are confident that such self-sufficiency and sustainability can only be achieved by ensuring equal rights and opportunities for all, enabling everyone to reach their maximum potential and make a difference — including women and girls, who make up half of the population.
+                At BBE, we work tirelessly towards sustainable outcomes, and we believe in the principle that &quot;we teach our communities to fish, instead of giving them a fish.&quot; We are confident that such self-sufficiency and sustainability can only be achieved by ensuring equal rights and opportunities for all, enabling everyone to reach their maximum potential and make a difference — including women and girls, who make up half of the population.
               </p>
               <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed">
                 That said, we prioritize not only meeting immediate needs but also fostering long-term sustainable development by equipping marginalized communities with the resources necessary for self-reliance. Since our founding, we have stood firmly committed to empowering marginalized communities by providing access to quality education, fostering economic independence through entrepreneurship and employment, and supporting access to essential healthcare, as well as providing humanitarian aid during crises. Through sustainable, community-led initiatives, we strive to close social gaps and equip individuals to become agents of lasting change.
               </p>
+              <div className={`mt-6 flex ${isRTL ? "justify-end" : "justify-start"}`}>
+                <Button asChild className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg">
+                  <Link href="/about/background">Read Full Background</Link>
+                </Button>
+              </div>
             </div>
           </div>
 

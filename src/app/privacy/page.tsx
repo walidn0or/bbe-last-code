@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
             <div className="prose prose-lg max-w-none space-y-8">
               <section>
                 <p className="text-gray-700 leading-relaxed">
-                  Beyond Borders Empowerment ("BBE", "we", "us", or "our") is committed to protecting your privacy. 
+                  Beyond Borders Empowerment (&quot;BBE&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your privacy. 
                   This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you 
                   visit our website <strong>bbe.ngo</strong> and use our services.
                 </p>
@@ -160,7 +160,7 @@ export default function PrivacyPolicyPage() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Children's Privacy</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Children&apos;s Privacy</h2>
                 <p className="text-gray-700 leading-relaxed">
                   Our website is not intended for children under 13. We do not knowingly collect information from children under 13.
                 </p>
@@ -196,7 +196,7 @@ export default function PrivacyPolicyPage() {
 
             <div className="mt-12 p-6 bg-red-50 rounded-xl text-center">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Questions About Your Privacy?</h3>
-              <p className="text-gray-700 mb-4">We're here to help. Contact us anytime.</p>
+              <p className="text-gray-700 mb-4">We&apos;re here to help. Contact us anytime.</p>
               <Button onClick={() => router.push('/contact')} className="bg-red-600 hover:bg-red-700 text-white">
                 Contact Us
               </Button>

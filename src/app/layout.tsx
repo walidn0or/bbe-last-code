@@ -1,5 +1,6 @@
 import "./globals.css"
 import type { Metadata } from "next"
+import type { Viewport } from "next"
 import { Inter } from "next/font/google"
 import { PageTransition } from "@/components/page-transition"
 
@@ -12,8 +13,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Beyond Borders Empowerment" }],
   creator: "Beyond Borders Empowerment",
   publisher: "Beyond Borders Empowerment",
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: "#dc2626",
   manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
@@ -51,6 +50,12 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#dc2626",
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -61,7 +66,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#000000" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <PageTransition>

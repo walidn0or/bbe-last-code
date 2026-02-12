@@ -36,7 +36,7 @@ export default function EnrollPage() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-white">
-        <Header activeSection="" scrollToSection={handleNavigation} />
+        <Header activeSection="enroll" scrollToSection={handleNavigation} />
         <main className="py-12 md:py-16 lg:py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12 md:mb-16">

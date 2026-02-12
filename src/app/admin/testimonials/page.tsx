@@ -149,7 +149,7 @@ export default function TestimonialsUploadPage() {
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                   <Quote className="h-6 w-6 text-pink-600 mb-2" />
                   <p className="text-gray-700 italic text-sm leading-relaxed">
-                    "{testimonial.quote}"
+                    {"\u201C"}{testimonial.quote}{"\u201D"}
                   </p>
                   <div className="mt-3 flex items-center space-x-3">
                     {uploadedFiles[testimonial.key] ? (
@@ -234,7 +234,7 @@ export default function TestimonialsUploadPage() {
                     <div className="pt-6">
                       <Quote className="h-6 w-6 text-pink-600 mb-4" />
                       <p className="text-gray-700 mb-4 italic leading-relaxed text-sm">
-                        "{testimonial.quote}"
+                        {"\u201C"}{testimonial.quote}{"\u201D"}
                       </p>
                       <div className="flex items-center space-x-3">
                         <img
@@ -276,7 +276,7 @@ export default function TestimonialsUploadPage() {
                 <h4 className="font-medium text-gray-900 mb-2">Best Practices:</h4>
                 <ul className="text-sm text-gray-600 space-y-1">
                   <li>• Photos will be displayed as circles</li>
-                  <li>• Center the person's face in the image</li>
+                  <li>• Center the person&apos;s face in the image</li>
                   <li>• Use consistent lighting across all photos</li>
                   <li>• Keep file sizes under 3MB for fast loading</li>
                 </ul>

@@ -126,7 +126,7 @@ export default function PublicationsPage() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-white">
-        <Header activeSection="" scrollToSection={handleNavigation} />
+        <Header activeSection="publications" scrollToSection={handleNavigation} />
         <PublicationsContent />
         <Footer scrollToSection={handleNavigation} />
       </div>

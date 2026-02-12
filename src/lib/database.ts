@@ -31,7 +31,7 @@ export interface DonationRecord {
 }
 
 // In-memory storage for development (replace with actual database)
-let donationsStore: DonationRecord[] = [];
+const donationsStore: DonationRecord[] = [];
 
 export async function saveDonation(donation: DonationRecord): Promise<DonationRecord> {
   try {

@@ -9,7 +9,7 @@
 //   → successStories.barin / .wasiya / .moheba / .ozra  (each: image, video)
 // - Hero main image         → public/images/content/                  → hero.main
 
-export const images: any = {
+export const images = {
   // Logo
   // To upload a new logo:
   // 1. Add your logo file to: public/images/
@@ -135,17 +135,26 @@ export const images: any = {
   // Using content images as placeholders until news images are uploaded
   news: {
     featured: "/images/news/Chevening.jpeg",
-    article1: "/images/news/News & Updates (1).jpeg",
+    article1: "/images/news/News.jpeg",
     article2: "/images/news/News & Updates (2).jpeg",
     article3: "/images/news/News & Updates.jpeg",
-    article4: "/images/news/News.jpeg",
-    article5: "/images/news/News2.jpeg",
+    article4: "/images/news/News2.jpeg",
+    article5: "/images/news/News & Updates (1).jpeg",
     article6: "/images/news/News & Updates.jpeg",
 
+    1: {
+      main: "/images/news/Chevening.jpeg",
+      gallery: ["/images/news/News & Updates.jpeg", "/images/news/News & Updates (1).jpeg"]
+    },
+    2: {
+      main: "/images/news/News.jpeg",
+      gallery: ["/images/news/News2.jpeg", "/images/news/News & Updates.jpeg"]
+    },
     3: {
       main: "/images/news/News & Updates (2).jpeg",
       gallery: []
     },
+
     4: {
       main: "/images/news/News.jpeg",
       gallery: ["/images/news/News & Updates.jpeg", "/images/news/News2.jpeg"]
@@ -317,9 +326,9 @@ export const images: any = {
     placeholder: "/placeholder.png",
     placeholderSvg: "/placeholder.svg"
   }
-}
+} as const
 
 // Helper function to get image with fallback
-export const getImage = (imagePath: any, fallback: any = images.fallback.placeholder): any => {
+export const getImage = (imagePath: string | null | undefined, fallback: string = images.fallback.placeholder): string => {
   return imagePath || fallback
 }

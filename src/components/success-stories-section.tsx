@@ -49,11 +49,13 @@ function VideoCircleThumb({ src, label }: { src: string; label: string }) {
 }
 
 function getStoryImage(key: "barin" | "bakhti" | "moheba" | "ozra" | "wasiya"): string | undefined {
-  const path = images.successStories?.[key]?.image
+  const entry = images.successStories?.[key]
+  const path = entry && "image" in entry ? entry.image : undefined
   return path && path.trim() !== "" ? path : undefined
 }
 function getStoryVideo(key: "barin" | "bakhti" | "moheba" | "ozra" | "wasiya"): string | undefined {
-  const path = images.successStories?.[key]?.video
+  const entry = images.successStories?.[key]
+  const path = entry && "video" in entry ? entry.video : undefined
   return path && path.trim() !== "" ? path : undefined
 }
 

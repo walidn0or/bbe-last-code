@@ -81,7 +81,7 @@ export function TestimonialsSection() {
                 <p
                   className={`text-gray-800 mb-6 leading-relaxed text-sm md:text-base font-medium ${isRTL ? "text-right" : ""}`}
                 >
-                  "{story.quote}"
+                  {"\u201C"}{story.quote}{"\u201D"}
                 </p>
                 <div className="pt-4 border-t border-gray-200">
                   <p className={`font-bold text-gray-900 text-base ${isRTL ? "text-right" : ""}`}>{story.name}</p>

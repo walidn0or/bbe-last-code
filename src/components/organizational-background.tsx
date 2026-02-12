@@ -1,14 +1,15 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export default function OrganizationalBackground() {
   return (
     <div className="max-w-4xl mx-auto">
-      <a
+      <Link
         href="/"
         className="inline-flex items-center mb-6 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors focus:outline-none"
       >
         &#8592; Back to Home
-      </a>
+      </Link>
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Organizational Background</h1>
       <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 bg-gray-50">
         <Image src="/placeholder.png" alt="Background image" fill className="object-cover" />
