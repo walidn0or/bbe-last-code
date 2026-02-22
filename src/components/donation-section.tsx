@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Heart, Users, BookOpen, GraduationCap, Stethoscope, Award, Globe, Shield, CheckCircle } from "lucide-react"
+import { Heart, Users, BookOpen, GraduationCap, Award, Globe, Shield, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 export function DonationSection() {
@@ -62,10 +62,10 @@ export function DonationSection() {
 
   const programs = [
     { name: t("programs.education"), icon: GraduationCap, color: "blue" },
-    { name: t("programs.healthcare"), icon: Stethoscope, color: "green" },
     { name: t("programs.economic"), icon: Users, color: "purple" },
     { name: t("programs.emergency"), icon: Award, color: "red" },
     { name: t("programs.orphans"), icon: Heart, color: "pink" },
+    { name: t("programs.refugeeSupport"), icon: Users, color: "green" },
     { name: t("donate.whereNeeded"), icon: Globe, color: "gray" },
   ]
 

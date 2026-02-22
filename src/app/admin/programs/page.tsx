@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Upload, Image, Check, X, Eye, GraduationCap, Stethoscope, Users, Heart, Globe, Award } from "lucide-react"
+import { ArrowLeft, Upload, Image, Check, X, Eye, GraduationCap, Users, Heart, Globe, Award } from "lucide-react"
 import { MediaUpload } from "@/components/media-upload"
 
 export const dynamic = 'force-dynamic'
@@ -12,11 +12,11 @@ export const dynamic = 'force-dynamic'
 export default function ProgramsUploadPage() {
   const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: string}>({
     education: "",
-    healthcare: "",
     economic: "",
     orphans: "",
     rights: "",
-    emergency: ""
+    emergency: "",
+    refugeeSupport: "",
   })
 
   const handleFileUploaded = (key: string, url: string) => {
@@ -38,18 +38,6 @@ export default function ProgramsUploadPage() {
       maxSize: "5MB",
       recommendedSize: "400x250px or larger",
       currentImage: uploadedFiles.education
-    },
-    {
-      key: "healthcare",
-      title: "Healthcare Program", 
-      description: "Mobile health clinics, mental health counseling, healthcare capacity",
-      icon: Stethoscope,
-      color: "green",
-      required: true,
-      acceptedTypes: "image/*",
-      maxSize: "5MB",
-      recommendedSize: "400x250px or larger",
-      currentImage: uploadedFiles.healthcare
     },
     {
       key: "economic",
@@ -98,6 +86,18 @@ export default function ProgramsUploadPage() {
       maxSize: "5MB",
       recommendedSize: "400x250px or larger",
       currentImage: uploadedFiles.emergency
+    },
+    {
+      key: "refugeeSupport",
+      title: "Refugee Support Program",
+      description: "Community gatherings and empowerment sessions in the UK",
+      icon: Users,
+      color: "green",
+      required: true,
+      acceptedTypes: "image/*",
+      maxSize: "5MB",
+      recommendedSize: "400x250px or larger",
+      currentImage: uploadedFiles.refugeeSupport
     }
   ]
 
@@ -126,7 +126,7 @@ export default function ProgramsUploadPage() {
           </Link>
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Programs Section Upload</h1>
-            <p className="text-gray-600">Upload images for all 6 programs</p>
+            <p className="text-gray-600">Upload images for all programs</p>
           </div>
         </div>
 

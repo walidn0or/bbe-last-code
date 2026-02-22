@@ -8,7 +8,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { images, getImage } from "@/config/images"
 import { InlineImageUpload } from "@/components/inline-image-upload"
 
-type ProgramKey = Exclude<keyof typeof images.programs, "healthcare">
+type ProgramKey = Exclude<keyof typeof images.programs, "healthcare" | "rights">
 
 export function ProgramsSection() {
   const { t, isRTL } = useLanguage()
@@ -19,7 +19,6 @@ export function ProgramsSection() {
     education: images.programs.education,
     economic: images.programs.economic,
     orphans: images.programs.orphans,
-    rights: images.programs.rights,
     emergency: images.programs.emergency,
     refugeeSupport: images.programs.refugeeSupport,
   })
@@ -31,7 +30,6 @@ export function ProgramsSection() {
         education: localStorage.getItem("programs_education_image_url") || prev.education,
         economic: localStorage.getItem("programs_economic_image_url") || prev.economic,
         orphans: localStorage.getItem("programs_orphans_image_url") || prev.orphans,
-        rights: localStorage.getItem("programs_rights_image_url") || prev.rights,
         emergency: localStorage.getItem("programs_emergency_image_url") || prev.emergency,
         refugeeSupport: localStorage.getItem("programs_refugeeSupport_image_url") || prev.refugeeSupport,
       }))
@@ -75,12 +73,6 @@ export function ProgramsSection() {
         color: "red",
         key: "orphans" as const,
         image: programImages.orphans,
-        features: [
-          t("programs.educationalSupport"),
-          t("programs.nutritionalPrograms"),
-          t("programs.skillsTraining"),
-          t("programs.emotionalSupport"),
-        ],
       },
       {
         title: t("programs.emergency"),
@@ -89,12 +81,6 @@ export function ProgramsSection() {
         color: "yellow",
         key: "emergency" as const,
         image: programImages.emergency,
-        features: [
-          t("programs.foodShelter"),
-          t("programs.medicalSupplies"),
-          t("programs.disasterResponse"),
-          t("programs.recoveryPlanning"),
-        ],
       },
       {
         title: t("programs.refugeeSupport"),
@@ -103,7 +89,6 @@ export function ProgramsSection() {
         color: "green",
         key: "refugeeSupport" as const,
         image: programImages.refugeeSupport,
-        features: [t("programs.businessTraining"), t("programs.technicalSkills")],
       },
     ],
     [programImages, t]
@@ -489,6 +474,8 @@ export function ProgramsSection() {
                   )}
                 </div>
               </div>
+
+              <div className="mt-8">{renderLongContent(activeProgram.key)}</div>
 
               {modalImages.length > 1 && (
                 <div className="mt-6">

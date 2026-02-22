@@ -1,27 +1,15 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
-import { useState, useEffect } from "react"
-import { InlineImageUpload } from "@/components/inline-image-upload"
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Target, Lightbulb, BookOpen, Users, Globe, Shield, Award, Heart, Upload } from "lucide-react"
+import { Target, Lightbulb, Users, Globe, Shield, Award, Heart } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
 import { images, getImage } from "@/config/images"
 
 export function AboutSection() {
   const { t, isRTL } = useLanguage()
-  const [aboutImg, setAboutImg] = useState<string>(images.about.main)
-  const [isAdmin, setIsAdmin] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("about_image_url")
-      if (stored) setAboutImg(stored)
-      setIsAdmin(new URLSearchParams(window.location.search).get("admin") === "1")
-    }
-  }, [])
 
   const coreValues = [
     {
@@ -74,62 +62,9 @@ export function AboutSection() {
 
           {/* Story Section */}
           <div
-            className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16 lg:mb-20 ${isRTL ? "lg:grid-flow-col-dense" : ""}`}
+            className={`max-w-4xl mx-auto mb-16 lg:mb-20 ${isRTL ? "text-right" : ""}`}
           >
-            <div className={`relative order-2 lg:order-1 ${isRTL ? "lg:order-2" : ""}`}>
-              {/* ========== ABOUT IMAGE UPLOAD SECTION ========== */}
-              {/* 
-                To update the about section images:
-                
-                1. Main About Image:
-                   - Location: public/images/about/
-                   - Recommended size: 1200x800px (3:2 ratio)
-                   - Update path in: src/config/images.ts -> about.main
-
-                2. Team Member Images:
-                   - Location: public/images/about/team/
-                   - Recommended size: 500x500px (1:1 ratio)
-                   - Naming: team-member-{number}.jpg (e.g., team-member-1.jpg)
-
-                3. Core Value Icons:
-                   - Location: public/images/about/values/
-                   - Recommended size: 200x200px (1:1 ratio)
-                   - Naming: {value-name}.jpg (e.g., inclusiveness.jpg)
-              */}
-              <div className="relative h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg group">
-                <Image
-                  src={getImage(aboutImg)}
-                  alt={t("about.imageAlt")}
-                  fill
-                  className="object-cover object-center"
-                />
-                {isAdmin && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <InlineImageUpload
-                      storageKey="about_image_url"
-                      onUploaded={(url) => {
-                        setAboutImg(url);
-                        if (typeof window !== 'undefined') {
-                          localStorage.setItem('about_image_url', url);
-                        }
-                      }}
-                    >
-                      <div className="bg-white/90 hover:bg-white text-red-600 px-4 py-2 rounded-full flex items-center shadow-lg cursor-pointer">
-                        <Upload className="h-4 w-4 mr-2" />
-                        {t('common.changeImage')}
-                      </div>
-                    </InlineImageUpload>
-                  </div>
-                )}
-              </div>
-              {/* ========== END ABOUT IMAGE UPLOAD SECTION ========== */}
-              <div
-                className={`absolute -top-2 ${isRTL ? "-left-2 md:-left-4" : "-right-2 md:-right-4"} md:-top-4 bg-red-600 text-white p-3 md:p-4 rounded-xl shadow-lg`}
-              >
-                <BookOpen className="h-6 w-6 md:h-8 md:w-8" />
-              </div>
-            </div>
-            <div className={`order-1 lg:order-2 ${isRTL ? "lg:order-1 text-right" : ""}`}>
+            <div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">Organizational Background</h3>
               <p className="text-gray-700 mb-4 md:mb-6 leading-relaxed">
                 Beyond Borders Empowerment (BBE) is a registered nonprofit organization founded in early 2023 by a dedicated team of professionals, including educators, university professors, writers, medical doctors, journalists, human rights defenders, and legal experts. BBE is built on the philosophy and principles of human rights, social justice, respect for human dignity, and collective efforts to foster growth and empowerment.

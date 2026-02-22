@@ -3,10 +3,20 @@
 import { LanguageProvider } from "@/contexts/language-context"
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
-import { HomeIntroSection } from "@/components/home-intro-section"
-import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
-import { SuccessStoriesSection } from "@/components/success-stories-section"
+import dynamic from "next/dynamic"
+
+const HomeIntroSection = dynamic(
+  () => import("@/components/home-intro-section").then((m) => m.HomeIntroSection),
+  { ssr: false }
+)
+const SuccessStoriesSection = dynamic(
+  () => import("@/components/success-stories-section").then((m) => m.SuccessStoriesSection),
+  { ssr: false }
+)
+const CTASection = dynamic(() => import("@/components/cta-section").then((m) => m.CTASection), {
+  ssr: false,
+})
 
 export default function HomePage() {
   // Navigation handler for separate pages

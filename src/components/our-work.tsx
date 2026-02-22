@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useMemo, useState, useEffect } from "react"
-import { X, Upload, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, Upload } from "lucide-react"
 import { images, getImage } from "@/config/images"
 import { InlineImageUpload } from "@/components/inline-image-upload"
 
@@ -55,7 +55,6 @@ export function OurWork() {
   const [activeKey, setActiveKey] = useState<keyof typeof images.ourWork | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [workImages, setWorkImages] = useState<Record<string, string>>({})
-  const [workGalleries, setWorkGalleries] = useState<Record<string, string[]>>({})
   const [selectedModalImage, setSelectedModalImage] = useState<string | null>(null)
 
   useEffect(() => {
@@ -68,16 +67,6 @@ export function OurWork() {
         if (mainImg) {
           setWorkImages((prev) => ({ ...prev, [key]: mainImg }))
         }
-
-        const galleryStr = localStorage.getItem(`our_work_${key}_gallery`)
-        if (galleryStr) {
-          try {
-            const parsed = JSON.parse(galleryStr)
-            if (Array.isArray(parsed)) {
-              setWorkGalleries((prev) => ({ ...prev, [key]: parsed.filter(Boolean) }))
-            }
-          } catch {}
-        }
       })
     }
   }, [])
@@ -88,26 +77,6 @@ export function OurWork() {
     const key = String(activeItem.key)
     return workImages[key] || getImage(images.ourWork[activeItem.key], images.fallback.placeholder)
   }, [activeItem, workImages])
-
-  const activeGallery = useMemo(() => {
-    if (!activeItem) return []
-    const key = String(activeItem.key)
-    const fromStorage = workGalleries[key]
-    if (Array.isArray(fromStorage) && fromStorage.length > 0) return fromStorage
-
-    const fromConfig = images.ourWorkGallery?.[activeItem.key] ?? []
-    return Array.from(fromConfig).filter(Boolean)
-  }, [activeItem, workGalleries])
-
-  const modalImages = useMemo(() => {
-    const base = [activeImage, ...activeGallery]
-    const uniq: string[] = []
-    for (const src of base) {
-      if (!src) continue
-      if (!uniq.includes(src)) uniq.push(src)
-    }
-    return uniq
-  }, [activeImage, activeGallery])
 
   const closeModal = () => {
     setActiveKey(null)
@@ -127,10 +96,11 @@ export function OurWork() {
     <section className="py-12 md:py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
-          <p className="text-xs uppercase tracking-[0.25em] text-red-600 font-semibold mb-3">Our Work</p>
-          <h2 className="text-2xl md:3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Work</h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-red-600 to-blue-600 mx-auto mb-6"></div>
+          <p className="text-lg md:text-xl text-gray-600 font-semibold leading-relaxed">
             Programs that move our communities forward
-          </h2>
+          </p>
           <p className="mt-4 text-gray-600 text-base md:text-lg leading-relaxed">
             From health and dignity to language skills and creative expression, each initiative is built with and for the people we serve.
           </p>
@@ -240,37 +210,6 @@ export function OurWork() {
                     className="object-contain"
                     sizes="(min-width: 1024px) 800px, 100vw"
                   />
-
-                  {modalImages.length > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const current = selectedModalImage || activeImage
-                          const i = modalImages.indexOf(current)
-                          const prev = modalImages[(i <= 0 ? modalImages.length : i) - 1] || modalImages[0]
-                          setSelectedModalImage(prev)
-                        }}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 rounded-full w-9 h-9 flex items-center justify-center shadow transition"
-                        aria-label="Previous image"
-                      >
-                        <ChevronLeft className="h-5 w-5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const current = selectedModalImage || activeImage
-                          const i = modalImages.indexOf(current)
-                          const next = modalImages[(i + 1) % modalImages.length] || modalImages[0]
-                          setSelectedModalImage(next)
-                        }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 rounded-full w-9 h-9 flex items-center justify-center shadow transition"
-                        aria-label="Next image"
-                      >
-                        <ChevronRight className="h-5 w-5" />
-                      </button>
-                    </>
-                  )}
                 </div>
                 {isAdmin && (
                   <div className="absolute bottom-3 left-3">
@@ -292,37 +231,6 @@ export function OurWork() {
                   </div>
                 )}
               </div>
-
-              {activeGallery.length > 0 && (
-                <div className="mt-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-red-600 font-semibold mb-3">Gallery</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                    {activeGallery.map((src, idx) => (
-                      <button
-                        key={`${src}-${idx}`}
-                        type="button"
-                        onClick={() => setSelectedModalImage(src)}
-                        className={`relative rounded-lg overflow-hidden border bg-gray-50 transition-colors ${
-                          (selectedModalImage || activeImage) === src
-                            ? "border-red-500 ring-2 ring-red-200"
-                            : "border-gray-200 hover:border-gray-300"
-                        }`}
-                        aria-label={`View ${activeItem.title} gallery image ${idx + 1}`}
-                      >
-                        <div className="relative h-24 sm:h-28 md:h-32">
-                          <Image
-                            src={getImage(src, images.fallback.placeholder)}
-                            alt={`${activeItem.title} gallery ${idx + 1}`}
-                            fill
-                            className="object-cover"
-                            sizes="(min-width: 1024px) 200px, (min-width: 640px) 25vw, 50vw"
-                          />
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>

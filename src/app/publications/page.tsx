@@ -20,7 +20,7 @@ function PublicationsContent() {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">{t("publications.subtitle")}</p>
         </div>
 
-        <section className="mb-16">
+        <section id="annual-reports" className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <FileText className="h-8 w-8 text-red-600" />
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t("publications.annualReports")}</h2>
@@ -67,7 +67,7 @@ function PublicationsContent() {
           </div>
         </section>
 
-        <section className="mb-16">
+        <section id="library" className="mb-16">
           <div className="flex items-center gap-3 mb-8">
             <BookOpen className="h-8 w-8 text-blue-600" />
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t("publications.libraryTitle")}</h2>
@@ -80,7 +80,7 @@ function PublicationsContent() {
           </Card>
         </section>
 
-        <section>
+        <section id="student-narratives">
           <div className="flex items-center gap-3 mb-8">
             <Users className="h-8 w-8 text-purple-600" />
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t("publications.narrativesTitle")}</h2>

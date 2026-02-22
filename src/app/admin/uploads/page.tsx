@@ -381,8 +381,8 @@ export default function AdminUploadsPage() {
     {
       id: 'programs',
       title: 'Programs Section',
-      icon: GraduationCap,
-      color: 'from-indigo-500 to-indigo-600',
+      icon: Users,
+      color: 'from-purple-500 to-purple-600',
       description: 'Program category images',
       uploads: [
         {
@@ -395,49 +395,49 @@ export default function AdminUploadsPage() {
           description: 'Education program category image'
         },
         {
-          key: 'programs_healthcare_image_url',
-          label: 'Healthcare Program Image',
-          directory: 'programs',
-          acceptedTypes: 'image/*',
-          maxSize: '5MB',
-          storageKey: 'programs_healthcare_image_url',
-          description: 'Healthcare program category image'
-        },
-        {
           key: 'programs_economic_image_url',
-          label: 'Economic Empowerment Image',
+          label: 'Economic Program Image',
           directory: 'programs',
           acceptedTypes: 'image/*',
           maxSize: '5MB',
           storageKey: 'programs_economic_image_url',
-          description: 'Economic empowerment program image'
+          description: 'Economic program category image'
         },
         {
           key: 'programs_orphans_image_url',
-          label: 'Orphan Support Image',
+          label: 'Orphans Program Image',
           directory: 'programs',
           acceptedTypes: 'image/*',
           maxSize: '5MB',
           storageKey: 'programs_orphans_image_url',
-          description: 'Orphan support program image'
+          description: 'Orphans program category image'
         },
         {
           key: 'programs_rights_image_url',
-          label: 'Rights & Advocacy Image',
+          label: 'Rights Program Image',
           directory: 'programs',
           acceptedTypes: 'image/*',
           maxSize: '5MB',
           storageKey: 'programs_rights_image_url',
-          description: 'Rights & advocacy program image'
+          description: 'Rights program category image'
         },
         {
           key: 'programs_emergency_image_url',
-          label: 'Emergency Relief Image',
+          label: 'Emergency Program Image',
           directory: 'programs',
           acceptedTypes: 'image/*',
           maxSize: '5MB',
           storageKey: 'programs_emergency_image_url',
-          description: 'Emergency relief program image'
+          description: 'Emergency program category image'
+        },
+        {
+          key: 'programs_refugeeSupport_image_url',
+          label: 'Refugee Support Program Image',
+          directory: 'programs',
+          acceptedTypes: 'image/*',
+          maxSize: '5MB',
+          storageKey: 'programs_refugeeSupport_image_url',
+          description: 'Refugee Support program category image'
         }
       ]
     },

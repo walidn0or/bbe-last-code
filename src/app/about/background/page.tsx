@@ -19,7 +19,7 @@ const STORAGE_KEY = "about_background_content"
 export default function BackgroundPage() {
   const router = useRouter()
   const [content, setContent] = useState<BackgroundContent>({
-    title: "Organizational Background",
+    title: "Our Team",
     body: `Beyond Borders Empowerment (BBE) is a nonprofit organization founded in early 2023 by a dedicated team of professionals, including educators, university professors, writers, medical doctors, journalists, human rights defenders, and legal experts. BBE is built on the philosophy and principles of human rights, social justice, respect for human dignity, and collective efforts to foster growth and empowerment.
 
 At BBE, we work tirelessly towards sustainable outcomes, and we believe in the principle that “we teach our communities to fish, instead of giving them a fish.” We are confident that such self-sufficiency and sustainability can only be achieved by ensuring equal rights and opportunities for all, enabling everyone to reach their maximum potential and make a difference — including women and girls, who make up half of the population. That said, we prioritize not only meeting immediate needs but also fostering long-term sustainable development by equipping marginalized communities with the resources necessary for self-reliance.
@@ -59,7 +59,11 @@ Respect for Dignity: We treat every individual and culture with the utmost respe
       if (raw) {
         try {
           const parsed = JSON.parse(raw) as BackgroundContent
-          setContent((c) => ({ ...c, ...parsed }))
+          setContent((c) => ({
+            ...c,
+            ...parsed,
+            title: parsed.title === "Organizational Background" ? "Our Team" : parsed.title,
+          }))
         } catch {}
       }
     }

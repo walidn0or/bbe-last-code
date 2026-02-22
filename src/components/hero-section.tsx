@@ -10,15 +10,57 @@ interface HeroSectionProps {
   scrollToSection: (sectionId: string) => void
 }
 
+type ConnectionInfo = {
+  saveData?: boolean
+  effectiveType?: "slow-2g" | "2g" | "3g" | "4g"
+}
+
+type NavigatorWithConnection = Navigator & {
+  connection?: ConnectionInfo
+}
+
+type WindowWithIdleCallback = Window & {
+  requestIdleCallback?: (callback: () => void) => number
+  cancelIdleCallback?: (handle: number) => void
+}
+
 export function HeroSection({ scrollToSection }: HeroSectionProps) {
   const { t, isRTL } = useLanguage()
   const [heroImg, setHeroImg] = useState<string>(getAssetPath(images.hero.main))
+  const [showVideo, setShowVideo] = useState(false)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("hero_image_url")
       if (stored) setHeroImg(stored.startsWith("/") ? getAssetPath(stored) : stored)
     }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
+    const connection = (navigator as NavigatorWithConnection).connection
+    const saveData = !!connection?.saveData
+    const effectiveType = connection?.effectiveType
+    const slowConnection = effectiveType === "2g" || effectiveType === "slow-2g"
+
+    if (prefersReducedMotion || saveData || slowConnection) return
+
+    const enable = () => setShowVideo(true)
+
+    const ric = (window as WindowWithIdleCallback).requestIdleCallback
+    if (typeof ric === "function") {
+      const id = ric(enable)
+      return () => {
+        try {
+          ;(window as WindowWithIdleCallback).cancelIdleCallback?.(id)
+        } catch {}
+      }
+    }
+
+    const tId = window.setTimeout(enable, 1200)
+    return () => window.clearTimeout(tId)
   }, [])
 
   return (
@@ -29,19 +71,21 @@ export function HeroSection({ scrollToSection }: HeroSectionProps) {
           style={{ backgroundImage: `url(${heroImg})` }}
           aria-hidden="true"
         ></div>
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={getAssetPath(images.hero.main)}
-          aria-hidden="true"
-        >
-          <source src={getAssetPath(images.hero.background)} type="video/mp4" />
-          <source src={getAssetPath(images.hero.background)} type="video/quicktime" />
-        </video>
+        {showVideo && (
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={getAssetPath(images.hero.main)}
+            aria-hidden="true"
+          >
+            <source src={getAssetPath(images.hero.background)} type="video/mp4" />
+            <source src={getAssetPath(images.hero.background)} type="video/quicktime" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-gradient-to-br from-black/65 via-black/45 to-brand-blue/35 mix-blend-multiply backdrop-blur-sm"></div>
       </div>
 
@@ -67,7 +111,7 @@ export function HeroSection({ scrollToSection }: HeroSectionProps) {
                 isRTL ? "text-right" : ""
               }`}
             >
-              Beyond Borders Empowerment (BBE) is a women-led, non-profit organisation dedicated to fostering systemic change in marginalized communities. By centering women, youth, and children as agents of their own development, BBE addresses entrenched inequities arising from conflict, poverty, and social exclusion. Through an integrated portfolio of initiatives—including inclusive quality education, equitable healthcare access, economic empowerment, and context-driven innovation. BBE cultivates sustainable pathways for resilience, social transformation, sustainability and long-term community prosperity.
+              Beyond Borders Empowerment (BBE) is a women-led, non-profit organisation dedicated to fostering systemic change in marginalised communities. By centring women, youth, refugees and people-seeking asylum as agents of their own development, BBE addresses entrenched inequities arising from conflict, poverty, and social exclusion. Through an integrated portfolio of initiatives, including inclusive quality education, social cohesion, economic empowerment, and context-driven innovation. BBE cultivates sustainable pathways for resilience, social transformation, sustainability and long-term community prosperity.
             </p>
 
             <div className={`flex flex-col sm:flex-row gap-2 md:gap-3 max-w-md mx-auto justify-center ${isRTL ? "sm:flex-row-reverse" : ""}`}>
